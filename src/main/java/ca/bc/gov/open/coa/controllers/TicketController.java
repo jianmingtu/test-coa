@@ -57,7 +57,7 @@ public class TicketController {
 
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "GetTicketedUrlResponse")));
+                            new RequestSuccessLog("Request Success", "GetTicketedUrlRequest")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
