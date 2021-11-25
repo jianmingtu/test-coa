@@ -122,7 +122,7 @@ public class StorageController {
 
             log.info(
                     objectMapper.writeValueAsString(
-                            new RequestSuccessLog("Request Success", "StoreDocumentResponse")));
+                            new RequestSuccessLog("Request Success", "StoreDocumentRequest")));
             return resp.getBody();
         } catch (Exception ex) {
             log.error(
