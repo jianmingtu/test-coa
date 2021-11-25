@@ -98,7 +98,7 @@ public class FileController {
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "getFileMimeRequest",
+                                    "GetFileSizeRequest",
                                     ex.getMessage(),
                                     null)));
             throw new ORDSException();
