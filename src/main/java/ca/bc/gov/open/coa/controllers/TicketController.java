@@ -96,7 +96,7 @@ public class TicketController {
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "GetTicketResponse",
+                                    "GetTicketRequest",
                                     ex.getMessage(),
                                     null)));
             throw new ORDSException();
