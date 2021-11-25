@@ -129,7 +129,7 @@ public class StorageController {
                     objectMapper.writeValueAsString(
                             new OrdsErrorLog(
                                     "Error received from ORDS",
-                                    "StoreDocumentResponse",
+                                    "StoreDocumentRequest",
                                     ex.getMessage(),
                                     null)));
             throw new ORDSException();
