@@ -43,45 +43,6 @@ public class SoapConfig extends WsConfigurerAdapter {
 
     public static final String SOAP_NAMESPACE = "http://courts.gov.bc.ca/xml/ns/coa/v1";
 
-    @Override
-    public void addInterceptors(List<EndpointInterceptor> interceptors) {
-        var validatingInterceptor1 = interceptor1();
-        interceptors.add(validatingInterceptor1);
-    }
-
-    private PayloadValidatingInterceptor interceptor1() {
-        CustomPayloadValidator validatingInterceptor = new CustomPayloadValidator();
-        validatingInterceptor.setValidateRequest(true);
-        validatingInterceptor.setXsdSchemaCollection(
-                new XsdSchemaCollection() {
-                    @Override
-                    public XsdSchema[] getXsdSchemas() {
-                        return new XsdSchema[] {
-                            new SimpleXsdSchema(
-                                    new ClassPathResource("validation/coa-models-1.xsd"))
-                        };
-                    }
-
-                    @Override
-                    public XmlValidator createValidator() {
-                        try {
-                            return XmlValidatorFactory.createValidator(
-                                    getSchemas(), "http://www.w3.org/2001/XMLSchema");
-                        } catch (Exception e) {
-                            log.warn("XSD schema validation failed");
-                        }
-                        return null;
-                    }
-
-                    public Resource[] getSchemas() {
-                        return new Resource[] {
-                            new ClassPathResource("validation/coa-models-1.xsd"),
-                        };
-                    }
-                });
-        return validatingInterceptor;
-    }
-
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(
             ApplicationContext applicationContext) {
