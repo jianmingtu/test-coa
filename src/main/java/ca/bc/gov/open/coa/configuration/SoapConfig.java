@@ -41,7 +41,7 @@ import org.springframework.xml.xsd.XsdSchemaCollection;
 @Slf4j
 public class SoapConfig extends WsConfigurerAdapter {
 
-    public static final String SOAP_NAMESPACE = "http://courts.gov.bc.ca/xml/ns/coa/v1";
+    public static final String SOAP_NAMESPACE = "http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService";
 
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(
@@ -84,7 +84,7 @@ public class SoapConfig extends WsConfigurerAdapter {
         props.put(SOAPMessage.WRITE_XML_DECLARATION, "true");
         SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory();
         messageFactory.setMessageProperties(props);
-        messageFactory.setSoapVersion(SoapVersion.SOAP_12);
+        messageFactory.setSoapVersion(SoapVersion.SOAP_11);
         return messageFactory;
     }
 
