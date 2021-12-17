@@ -74,19 +74,19 @@ public class StorageController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "storeDocumentAsyncRequest")
     @ResponsePayload
-    public StoreDocumentAsyncRequest storeDocumentAsyncRequest(
+    public StoreDocumentAsyncResponse storeDocumentAsyncRequest(
             @RequestPayload StoreDocumentAsyncRequest search) throws JsonProcessingException {
         addEndpointHeader("StoreDocumentAsyncRequest");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
 
         try {
-            HttpEntity<StoreDocumentAsyncRequest> resp =
+            HttpEntity<StoreDocumentAsyncResponse> resp =
                     restTemplate.exchange(
                             builder.toUriString(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
-                            StoreDocumentAsyncRequest.class);
+                            StoreDocumentAsyncResponse.class);
 
             log.info(
                     objectMapper.writeValueAsString(
