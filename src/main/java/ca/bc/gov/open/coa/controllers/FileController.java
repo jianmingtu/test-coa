@@ -51,7 +51,15 @@ public class FileController {
             throws JsonProcessingException {
         addEndpointHeader("GetFileMimeRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "file/mime")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("version", coaConfig.getCoaVersion())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
 
         try {
             HttpEntity<GetFileMimeResponse> resp =
