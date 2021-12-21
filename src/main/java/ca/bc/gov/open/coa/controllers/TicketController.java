@@ -45,7 +45,7 @@ public class TicketController {
             @RequestPayload GetTicketedUrlRequest search) throws JsonProcessingException {
         addEndpointHeader("GetTicketedUrlRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "ticket/url");
 
         try {
             HttpEntity<GetTicketedUrlResponse> resp =
