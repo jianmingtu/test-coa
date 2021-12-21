@@ -30,93 +30,100 @@ import org.springframework.ws.transport.http.HttpServletConnection;
 @Slf4j
 @Endpoint
 public class FileController {
-  @Value("${coa.host}")
-  private String host = "https://127.0.0.1/";
+    @Value("${coa.host}")
+    private String host = "https://127.0.0.1/";
 
-  private final RestTemplate restTemplate;
-  private final ObjectMapper objectMapper;
-  private final CoaConfig coaConfig;
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
+    private final CoaConfig coaConfig;
 
-  @Autowired
-  public FileController(RestTemplate restTemplate, ObjectMapper objectMapper, CoaConfig coaConfig) {
-    this.restTemplate = restTemplate;
-    this.objectMapper = objectMapper;
-    this.coaConfig = coaConfig;
-  }
-
-  @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileMimeRequest")
-  @ResponsePayload
-  public GetFileMimeResponse getFileMimeRequest(@RequestPayload GetFileMimeRequest search)
-      throws JsonProcessingException {
-    addEndpointHeader("GetFileMimeRequest");
-
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
-
-    try {
-      HttpEntity<GetFileMimeResponse> resp =
-          restTemplate.exchange(
-              builder.toUriString(),
-              HttpMethod.GET,
-              new HttpEntity<>(new HttpHeaders()),
-              GetFileMimeResponse.class);
-
-      log.info(
-          objectMapper.writeValueAsString(
-              new RequestSuccessLog("Request Success", "getFileMimeRequest")));
-      return resp.getBody();
-    } catch (Exception ex) {
-      log.error(
-          objectMapper.writeValueAsString(
-              new OrdsErrorLog(
-                  "Error received from ORDS", "getFileMimeRequest", ex.getMessage(), null)));
-      throw new ORDSException();
+    @Autowired
+    public FileController(
+            RestTemplate restTemplate, ObjectMapper objectMapper, CoaConfig coaConfig) {
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
+        this.coaConfig = coaConfig;
     }
-  }
 
-  @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileSizeRequest")
-  @ResponsePayload
-  public GetFileSizeResponse getFileSizeRequest(@RequestPayload GetFileSizeRequest search)
-      throws JsonProcessingException {
-    addEndpointHeader("GetFileSizeRequest");
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileMimeRequest")
+    @ResponsePayload
+    public GetFileMimeResponse getFileMimeRequest(@RequestPayload GetFileMimeRequest search)
+            throws JsonProcessingException {
+        addEndpointHeader("GetFileMimeRequest");
 
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromHttpUrl(host + "file/size")
-            .queryParam("documentGUID", search.getDocumentGUID())
-            .queryParam("appId", coaConfig.getCoaAppId())
-            .queryParam("password", coaConfig.getCoaPassword())
-            .queryParam("userName", coaConfig.getCoaUsername())
-            .queryParam("version", coaConfig.getCoaVersion())
-            .queryParam("databaseId", coaConfig.getCoaDatabaseId())
-            .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
 
-    try {
-      HttpEntity<GetFileSizeResponse> resp =
-          restTemplate.exchange(
-              builder.toUriString(),
-              HttpMethod.GET,
-              new HttpEntity<>(new HttpHeaders()),
-              GetFileSizeResponse.class);
+        try {
+            HttpEntity<GetFileMimeResponse> resp =
+                    restTemplate.exchange(
+                            builder.build().encode().toUri(),
+                            HttpMethod.GET,
+                            new HttpEntity<>(new HttpHeaders()),
+                            GetFileMimeResponse.class);
 
-      log.info(
-          objectMapper.writeValueAsString(
-              new RequestSuccessLog("Request Success", "GetFileSizeRequest")));
-      return resp.getBody();
-    } catch (Exception ex) {
-      log.error(
-          objectMapper.writeValueAsString(
-              new OrdsErrorLog(
-                  "Error received from ORDS", "GetFileSizeRequest", ex.getMessage(), null)));
-      throw new ORDSException();
+            log.info(
+                    objectMapper.writeValueAsString(
+                            new RequestSuccessLog("Request Success", "getFileMimeRequest")));
+            return resp.getBody();
+        } catch (Exception ex) {
+            log.error(
+                    objectMapper.writeValueAsString(
+                            new OrdsErrorLog(
+                                    "Error received from ORDS",
+                                    "getFileMimeRequest",
+                                    ex.getMessage(),
+                                    null)));
+            throw new ORDSException();
+        }
     }
-  }
 
-  private void addEndpointHeader(String endpoint) {
-    try {
-      TransportContext context = TransportContextHolder.getTransportContext();
-      HttpServletConnection connection = (HttpServletConnection) context.getConnection();
-      connection.addResponseHeader("Endpoint", endpoint);
-    } catch (Exception ex) {
-      log.warn("Failed to add endpoint response header");
+    @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileSizeRequest")
+    @ResponsePayload
+    public GetFileSizeResponse getFileSizeRequest(@RequestPayload GetFileSizeRequest search)
+            throws JsonProcessingException {
+        addEndpointHeader("GetFileSizeRequest");
+
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "file/size")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("version", coaConfig.getCoaVersion())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
+
+        try {
+            HttpEntity<GetFileSizeResponse> resp =
+                    restTemplate.exchange(
+                            builder.build().encode().toUri(),
+                            HttpMethod.GET,
+                            new HttpEntity<>(new HttpHeaders()),
+                            GetFileSizeResponse.class);
+
+            log.info(
+                    objectMapper.writeValueAsString(
+                            new RequestSuccessLog("Request Success", "GetFileSizeRequest")));
+            return resp.getBody();
+        } catch (Exception ex) {
+            log.error(
+                    objectMapper.writeValueAsString(
+                            new OrdsErrorLog(
+                                    "Error received from ORDS",
+                                    "GetFileSizeRequest",
+                                    ex.getMessage(),
+                                    null)));
+            throw new ORDSException();
+        }
     }
-  }
+
+    private void addEndpointHeader(String endpoint) {
+        try {
+            TransportContext context = TransportContextHolder.getTransportContext();
+            HttpServletConnection connection = (HttpServletConnection) context.getConnection();
+            connection.addResponseHeader("Endpoint", endpoint);
+        } catch (Exception ex) {
+            log.warn("Failed to add endpoint response header");
+        }
+    }
 }

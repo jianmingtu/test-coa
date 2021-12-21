@@ -50,7 +50,7 @@ public class StorageController {
         try {
             HttpEntity<GetDocumentUploadStateResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetDocumentUploadStateResponse.class);
@@ -83,7 +83,7 @@ public class StorageController {
         try {
             HttpEntity<StoreDocumentAsyncResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             StoreDocumentAsyncResponse.class);
@@ -115,7 +115,7 @@ public class StorageController {
         try {
             HttpEntity<StoreDocumentResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             StoreDocumentResponse.class);

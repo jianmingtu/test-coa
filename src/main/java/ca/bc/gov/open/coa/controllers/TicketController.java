@@ -50,7 +50,7 @@ public class TicketController {
         try {
             HttpEntity<GetTicketedUrlResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetTicketedUrlResponse.class);
@@ -82,7 +82,7 @@ public class TicketController {
         try {
             HttpEntity<GetTicketResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetTicketResponse.class);

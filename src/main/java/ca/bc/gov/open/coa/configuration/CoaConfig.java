@@ -25,6 +25,5 @@ public class CoaConfig {
     @Value("${coa.object-store-ticket-lifetime}")
     private String coaTicketLifeTime;
 
-    public CoaConfig() {
-    }
+    public CoaConfig() {}
 }
