@@ -5,6 +5,7 @@ import ca.bc.gov.open.coa.configuration.SoapConfig;
 import ca.bc.gov.open.coa.exceptions.ORDSException;
 import ca.bc.gov.open.coa.models.OrdsErrorLog;
 import ca.bc.gov.open.coa.models.RequestSuccessLog;
+import ca.bc.gov.open.coa.models.StoreDocumentBody;
 import ca.bc.gov.open.coa.one.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -91,7 +92,8 @@ public class StorageController {
         addEndpointHeader("StoreDocumentAsyncRequest");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc/async");
-        HttpEntity<StoreDocumentAsyncRequest> payload = new HttpEntity<>(search, new HttpHeaders());
+        HttpEntity<StoreDocumentBody> payload =
+                new HttpEntity<>(new StoreDocumentBody(search, coaConfig), new HttpHeaders());
 
         try {
             HttpEntity<StoreDocumentAsyncResponse> resp =
@@ -124,7 +126,8 @@ public class StorageController {
         addEndpointHeader("StoreDocumentResponse");
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc");
-        HttpEntity<StoreDocumentRequest> payload = new HttpEntity<>(search, new HttpHeaders());
+        HttpEntity<StoreDocumentBody> payload =
+                new HttpEntity<>(new StoreDocumentBody(search, coaConfig), new HttpHeaders());
 
         try {
             HttpEntity<StoreDocumentResponse> resp =
