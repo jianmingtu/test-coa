@@ -52,7 +52,7 @@ public class HealthController {
         try {
             HttpEntity<GetHealthResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetHealthResponse.class);
@@ -80,7 +80,7 @@ public class HealthController {
         try {
             HttpEntity<GetPingResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetPingResponse.class);

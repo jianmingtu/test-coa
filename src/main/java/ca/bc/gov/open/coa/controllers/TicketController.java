@@ -1,5 +1,6 @@
 package ca.bc.gov.open.coa.controllers;
 
+import ca.bc.gov.open.coa.configuration.CoaConfig;
 import ca.bc.gov.open.coa.configuration.SoapConfig;
 import ca.bc.gov.open.coa.exceptions.ORDSException;
 import ca.bc.gov.open.coa.models.OrdsErrorLog;
@@ -32,11 +33,14 @@ public class TicketController {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final CoaConfig coaConfig;
 
     @Autowired
-    public TicketController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public TicketController(
+            RestTemplate restTemplate, ObjectMapper objectMapper, CoaConfig coaConfig) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.coaConfig = coaConfig;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getTicketedUrlRequest")
@@ -45,12 +49,23 @@ public class TicketController {
             @RequestPayload GetTicketedUrlRequest search) throws JsonProcessingException {
         addEndpointHeader("GetTicketedUrlRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "ticket/url")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam(
+                                "ticketLifetime",
+                                search.getTicketLifeTime() == null
+                                        ? coaConfig.getCoaTicketLifeTime()
+                                        : search.getTicketLifeTime());
 
         try {
             HttpEntity<GetTicketedUrlResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetTicketedUrlResponse.class);
@@ -77,12 +92,23 @@ public class TicketController {
             throws JsonProcessingException {
         addEndpointHeader("GetTicketRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "ticket")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam(
+                                "ticketLifetime",
+                                search.getTicketLifeTime() == null
+                                        ? coaConfig.getCoaTicketLifeTime()
+                                        : search.getTicketLifeTime());
 
         try {
             HttpEntity<GetTicketResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetTicketResponse.class);

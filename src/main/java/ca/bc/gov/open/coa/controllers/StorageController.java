@@ -1,5 +1,6 @@
 package ca.bc.gov.open.coa.controllers;
 
+import ca.bc.gov.open.coa.configuration.CoaConfig;
 import ca.bc.gov.open.coa.configuration.SoapConfig;
 import ca.bc.gov.open.coa.exceptions.ORDSException;
 import ca.bc.gov.open.coa.models.OrdsErrorLog;
@@ -32,11 +33,14 @@ public class StorageController {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final CoaConfig coaConfig;
 
     @Autowired
-    public StorageController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public StorageController(
+            RestTemplate restTemplate, ObjectMapper objectMapper, CoaConfig coaConfig) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.coaConfig = coaConfig;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getDocumentUploadStateRequest")
@@ -45,12 +49,20 @@ public class StorageController {
             @RequestPayload GetDocumentUploadStateRequest search) throws JsonProcessingException {
         addEndpointHeader("GetDocumentUploadStateRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "doc/state")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("version", coaConfig.getCoaVersion())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
 
         try {
             HttpEntity<GetDocumentUploadStateResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetDocumentUploadStateResponse.class);
@@ -78,14 +90,15 @@ public class StorageController {
             @RequestPayload StoreDocumentAsyncRequest search) throws JsonProcessingException {
         addEndpointHeader("StoreDocumentAsyncRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc/async");
+        HttpEntity<StoreDocumentAsyncRequest> payload = new HttpEntity<>(search, new HttpHeaders());
 
         try {
             HttpEntity<StoreDocumentAsyncResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
+                            builder.build().encode().toUri(),
+                            HttpMethod.POST,
+                            payload,
                             StoreDocumentAsyncResponse.class);
 
             log.info(
@@ -110,14 +123,15 @@ public class StorageController {
             throws JsonProcessingException {
         addEndpointHeader("StoreDocumentResponse");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc");
+        HttpEntity<StoreDocumentRequest> payload = new HttpEntity<>(search, new HttpHeaders());
 
         try {
             HttpEntity<StoreDocumentResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
+                            builder.build().encode().toUri(),
+                            HttpMethod.POST,
+                            payload,
                             StoreDocumentResponse.class);
 
             log.info(
