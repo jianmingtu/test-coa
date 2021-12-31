@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="8639310b-4825-4220-ac29-5e24efa50811" activeEnvironment="Default" name="coa" resourceRoot="${projectDir}" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2c0308fe-602e-472d-8700-8fcb1e440ad8" wsaVersion="NONE" name="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder" type="wsdl" bindingName="{http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService}COA_Source_ws_provider_WebCATSDocumentStorageService_Binder" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/243267/Downloads/JusticeCoa.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\243267\Downloads\JusticeCoa.wsdl"><con:part><con:url>file:\C:\Users\243267\Downloads\JusticeCoa.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="WebCATSDocumentStorageService" targetNamespace="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapjms="http://www.w3.org/2008/07/soap/bindings/JMS/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+      <xsd:complexType name="getTicketedUrlRequest">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+          <xsd:element name="ticketLifeTime" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTicketedUrlResponse">
+        <xsd:sequence>
+          <xsd:element name="ticketedUrl" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="storeDocumentRequest">
+        <xsd:sequence>
+          <xsd:element name="base64Document" nillable="true" type="xsd:string"/>
+          <xsd:element name="filename" nillable="true" type="xsd:string"/>
+          <xsd:element name="applicationViewGrant" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="storeDocumentResponse">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTicketRequest">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+          <xsd:element name="ticketLifeTime" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTicketResponse">
+        <xsd:sequence>
+          <xsd:element name="ticket" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getFileSizeRequest">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getFileSizeResponse">
+        <xsd:sequence>
+          <xsd:element name="size" nillable="true" type="xsd:long"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getFileMimeRequest">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getFileMimeResponse">
+        <xsd:sequence>
+          <xsd:element name="mime" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDocumentUploadStateRequest">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+          <xsd:element name="timeout_x00A0_" nillable="true" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getDocumentUploadStateResponse">
+        <xsd:sequence>
+          <xsd:element name="state" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="storeDocumentAsyncRequest">
+        <xsd:sequence>
+          <xsd:element name="filename" nillable="true" type="xsd:string"/>
+          <xsd:element name="applicationViewGrant" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="storeDocumentAsyncResponse">
+        <xsd:sequence>
+          <xsd:element name="documentGUID" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="storeDocumentAsyncRequest" type="tns:storeDocumentAsyncRequest"/>
+      <xsd:element name="storeDocumentAsyncResponse" type="tns:storeDocumentAsyncResponse"/>
+      <xsd:element name="storeDocumentRequest" type="tns:storeDocumentRequest"/>
+      <xsd:element name="storeDocumentResponse" type="tns:storeDocumentResponse"/>
+      <xsd:element name="getDocumentUploadStateRequest" type="tns:getDocumentUploadStateRequest"/>
+      <xsd:element name="getDocumentUploadStateResponse" type="tns:getDocumentUploadStateResponse"/>
+      <xsd:element name="getFileMimeRequest" type="tns:getFileMimeRequest"/>
+      <xsd:element name="getFileMimeResponse" type="tns:getFileMimeResponse"/>
+      <xsd:element name="getFileSizeRequest" type="tns:getFileSizeRequest"/>
+      <xsd:element name="getFileSizeResponse" type="tns:getFileSizeResponse"/>
+      <xsd:element name="getTicketedUrlRequest" type="tns:getTicketedUrlRequest"/>
+      <xsd:element name="getTicketedUrlResponse" type="tns:getTicketedUrlResponse"/>
+      <xsd:element name="getTicketRequest" type="tns:getTicketRequest"/>
+      <xsd:element name="getTicketResponse" type="tns:getTicketResponse"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getDocumentUploadStateRequest">
+    <wsdl:part name="parameters" element="tns:getDocumentUploadStateRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_storeDocumentAsyncResponse">
+    <wsdl:part name="parameters" element="tns:storeDocumentAsyncResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getTicketResponse">
+    <wsdl:part name="parameters" element="tns:getTicketResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_storeDocumentAsyncRequest">
+    <wsdl:part name="parameters" element="tns:storeDocumentAsyncRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_storeDocumentRequest">
+    <wsdl:part name="parameters" element="tns:storeDocumentRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getDocumentUploadStateResponse">
+    <wsdl:part name="parameters" element="tns:getDocumentUploadStateResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getTicketRequest">
+    <wsdl:part name="parameters" element="tns:getTicketRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getFileSizeResponse">
+    <wsdl:part name="parameters" element="tns:getFileSizeResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getFileMimeRequest">
+    <wsdl:part name="parameters" element="tns:getFileMimeRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_storeDocumentResponse">
+    <wsdl:part name="parameters" element="tns:storeDocumentResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getFileMimeResponse">
+    <wsdl:part name="parameters" element="tns:getFileMimeResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getFileSizeRequest">
+    <wsdl:part name="parameters" element="tns:getFileSizeRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getTicketedUrlResponse">
+    <wsdl:part name="parameters" element="tns:getTicketedUrlResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WebCATSDocumentStorageService_PortType_getTicketedUrlRequest">
+    <wsdl:part name="parameters" element="tns:getTicketedUrlRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="WebCATSDocumentStorageService_PortType">
+    <wsdl:operation name="storeDocumentAsync">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_storeDocumentAsyncRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_storeDocumentAsyncResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="storeDocument">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_storeDocumentRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_storeDocumentResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentUploadState">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_getDocumentUploadStateRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_getDocumentUploadStateResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileMime">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_getFileMimeRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_getFileMimeResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileSize">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_getFileSizeRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_getFileSizeResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketedUrl">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_getTicketedUrlRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_getTicketedUrlResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicket">
+      <wsdl:input message="tns:WebCATSDocumentStorageService_PortType_getTicketRequest"></wsdl:input>
+      <wsdl:output message="tns:WebCATSDocumentStorageService_PortType_getTicketResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder" type="tns:WebCATSDocumentStorageService_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="storeDocumentAsync">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_storeDocumentAsync" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="storeDocument">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_storeDocument" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentUploadState">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getDocumentUploadState" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileMime">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getFileMime" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFileSize">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getFileSize" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicketedUrl">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getTicketedUrl" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTicket">
+      <soap:operation soapAction="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getTicket" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebCATSDocumentStorageService">
+    <wsdl:port name="COA_Source_ws_provider_WebCATSDocumentStorageService_Port" binding="tns:COA_Source_ws_provider_WebCATSDocumentStorageService_Binder">
+      <soap:address location="http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port</con:endpoint></con:endpoints><con:operation id="d7ee3559-db61-47c9-bb3c-556a42bc4f45" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getDocumentUploadState" name="getDocumentUploadState" bindingOperationName="getDocumentUploadState" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ad5a3214-b756-4d62-8dfd-a2ba0b231b82" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:getDocumentUploadStateRequest>\r
+         <documentGUID>?</documentGUID>\r
+         <timeout_x00A0_>?</timeout_x00A0_>\r
+      </coa:getDocumentUploadStateRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getDocumentUploadState"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="7db16096-95bd-4a76-ba65-4d157efcb993" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getFileMime" name="getFileMime" bindingOperationName="getFileMime" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="54c8052f-d351-4c0d-a421-ebeb59ef39f0" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:getFileMimeRequest>\r
+         <documentGUID>?</documentGUID>\r
+      </coa:getFileMimeRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getFileMime"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="14b0e05b-c130-492e-9db7-c3f0b42c2b9c" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getFileSize" name="getFileSize" bindingOperationName="getFileSize" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f29298a4-b760-4584-a65a-8f8684bb5380" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:getFileSizeRequest>\r
+         <documentGUID>?</documentGUID>\r
+      </coa:getFileSizeRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getFileSize"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="12a2c7d2-efd1-448a-b79c-886132e50dc9" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getTicket" name="getTicket" bindingOperationName="getTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9dd6d21d-59c0-4bfe-a558-bf8ec1cfcb92" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:getTicketRequest>\r
+         <documentGUID>?</documentGUID>\r
+         <ticketLifeTime>?</ticketLifeTime>\r
+      </coa:getTicketRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getTicket"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="88626f03-4620-47df-ab40-0ea8821e9919" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getTicketedUrl" name="getTicketedUrl" bindingOperationName="getTicketedUrl" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="176c17c0-e70e-42cc-b9fd-bc4ad6490496" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:getTicketedUrlRequest>\r
+         <documentGUID>?</documentGUID>\r
+         <ticketLifeTime>?</ticketLifeTime>\r
+      </coa:getTicketedUrlRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_getTicketedUrl"/></con:call></con:operation><con:operation id="a4209a30-a8c7-49f1-bc57-3f3d8415a233" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_storeDocument" name="storeDocument" bindingOperationName="storeDocument" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b2a606ee-dcc5-48fa-bdf0-d2e1022326de" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:storeDocumentRequest>\r
+         <base64Document>?</base64Document>\r
+         <filename>?</filename>\r
+         <applicationViewGrant>?</applicationViewGrant>\r
+      </coa:storeDocumentRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_storeDocument"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="e5b1639a-c500-476b-9ca5-dba9a8c9cfd8" isOneWay="false" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_storeDocumentAsync" name="storeDocumentAsync" bindingOperationName="storeDocumentAsync" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="15c388c9-3b66-427f-be1e-7a62b2644717" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://reeks.bcgov:5555/ws/COA.Source.ws.provider:WebCATSDocumentStorageService/COA_Source_ws_provider_WebCATSDocumentStorageService_Port</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <coa:storeDocumentAsyncRequest>\r
+         <filename>?</filename>\r
+         <applicationViewGrant>?</applicationViewGrant>\r
+      </coa:storeDocumentAsyncRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="COA_Source_ws_provider_WebCATSDocumentStorageService_Binder_storeDocumentAsync"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="4e2c43a6-1fde-4e2b-8c89-ddf6548fa623" name="TestSuite COA"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="568ff6bd-11ea-4483-bdcf-c107874fd4ba" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetDocumentUploadState" searchProperties="true"><con:settings/><con:testStep type="request" name="getDocState" id="c62becc3-b687-4309-8633-0bdc245ec7ce"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>COA_Source_ws_provider_WebCATSDocumentStorageService_Binder</con:interface><con:operation>getDocumentUploadState</con:operation><con:request name="getDocState" id="c1b9a2de-fed2-481e-abd3-6a999197bf66"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+
+   <soapenv:Header/>
+
+   <soapenv:Body>
+
+      <coa:getDocumentUploadStateRequest>
+
+         <documentGUID>QxWpaiPJcA;0"|3Bzj4?wJ>fT\}V&lt;ACkiu[fXU!&amp;4@!ElKEbP1$FMn&amp;O&amp;i(|]UAj2kiVh.010417000.141011.2457492.D"~TA</documentGUID>
+
+         <!-- <timeout_x00A0_>?</timeout_x00A0_> -->
+
+      </coa:getDocumentUploadStateRequest>
+
+   </soapenv:Body>
+
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="6b5aad80-1514-45a6-8117-109bb30438b6"/><con:assertion type="Simple Contains" id="af507a3a-3aaf-4128-a309-7370866964e3" name="Contains"><con:configuration><token>COMPLETE</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple NotContains" id="8560139b-41f3-447d-800e-16ecf151e7c5" name="Not Contains"><con:configuration><token>false</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="a106c5fe-cfae-4323-a556-baf74053ccd9" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="11fc082d-64fe-499d-8ed9-9b994a72fbbc" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Sensitive Information Exposure" id="37fbc1e5-9532-46ae-9b01-3e18251b47b3" name="Sensitive Information Exposure"><con:configuration><AssertionSpecificExposureList>random###imp value</AssertionSpecificExposureList><IncludeProjectSpecific>true</IncludeProjectSpecific><IncludeGlobal>true</IncludeGlobal></con:configuration></con:assertion><con:assertion type="XPath Match" id="a217699a-bfb2-4867-9ace-4004ba84dac6" name="XPath Match"><con:configuration/></con:assertion><con:assertion type="XPath Match" id="5423a43f-3532-41bc-93b6-a676bd6c0f37" name="XPath Match 1"><con:configuration/></con:assertion><con:assertion type="XPath Match" id="90c9e093-d59f-40ee-8661-db2ca9f88c1e" name="DocID"><con:configuration><path>declare namespace SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ser-root='http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService';
+//state</path><content>COMPLETE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>documentGUID</con:name><con:value>QxWpaiPJcA;0"|3Bzj4?wJ>fT\}V&lt;ACkiu[fXU!&amp;4@!ElKEbP1$FMn&amp;O&amp;i(|]UAj2kiVh.010417000.141011.2457492.D"~TA</con:value></con:property></con:properties></con:testCase><con:testCase id="d516d554-7401-401c-b932-084d398dc294" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetFileMime" searchProperties="true"><con:settings/><con:testStep type="request" name="getFile" id="27bd320e-92ce-45d4-b1d2-48e0b05834a9"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>COA_Source_ws_provider_WebCATSDocumentStorageService_Binder</con:interface><con:operation>getDocumentUploadState</con:operation><con:request name="getFile" id="c9f5432c-542e-46c9-ba9b-4732d1c6ef8b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <coa:getFileMimeRequest>
+         <documentGUID>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</documentGUID>
+      </coa:getFileMimeRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="68c9c851-3093-49af-9a3b-3058141760bf"/><con:assertion type="Simple Contains" id="d6d2e986-d9e5-4363-a2a2-b73e4d7730a4" name="Contains"><con:configuration><token>application/pdf</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="445b7c5c-f2b0-4bac-8c64-5cc7312fc103" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Sensitive Information Exposure" id="1a3de52e-d04f-4e59-a1dc-13a875e559dc" name="Sensitive Information Exposure"><con:configuration><AssertionSpecificExposureList>random###imp value</AssertionSpecificExposureList><IncludeProjectSpecific>true</IncludeProjectSpecific><IncludeGlobal>true</IncludeGlobal></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="9f6774cc-f49c-445b-8d9f-b95ce7b55b54" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>documentGUID</con:name><con:value>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</con:value></con:property></con:properties></con:testCase><con:testCase id="5b8a55ca-e828-4110-a20c-6e6e96d1ce92" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetFileSize" searchProperties="true"><con:settings/><con:testStep type="request" name="getFileSizeStep" id="d7d37b07-731f-4712-a37c-d91b82023e85"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>COA_Source_ws_provider_WebCATSDocumentStorageService_Binder</con:interface><con:operation>getDocumentUploadState</con:operation><con:request name="getFileSizeStep" id="e28ded2c-9f5d-43a4-bb62-dbdfdf87947f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <coa:getFileSizeRequest>
+         <documentGUID>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</documentGUID>
+      </coa:getFileSizeRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f58427af-4ca8-44d2-bbe9-11076d12ec88"/><con:assertion type="Simple Contains" id="d0b01aea-194e-427a-921e-0b23e1fd8e76" name="Contains"><con:configuration><token>67587</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="9fa8f67f-cee7-470e-aadf-20dbfb343af3" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="57cd5d4e-bf86-4214-bc08-9bef5766b708" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Sensitive Information Exposure" id="51afbc04-6876-40e2-bebe-c4b1b680f62d" name="Sensitive Information Exposure"><con:configuration><AssertionSpecificExposureList>random###imp info</AssertionSpecificExposureList><IncludeProjectSpecific>true</IncludeProjectSpecific><IncludeGlobal>true</IncludeGlobal></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>documentGUID</con:name><con:value>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</con:value></con:property></con:properties></con:testCase><con:testCase id="6e175206-c261-4f4b-bdd7-8672cb92935f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetTicket" searchProperties="true"><con:settings/><con:testStep type="request" name="getTicket" id="3e2c0011-8557-4e2e-be99-939a43996962"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>COA_Source_ws_provider_WebCATSDocumentStorageService_Binder</con:interface><con:operation>getDocumentUploadState</con:operation><con:request name="getTicket" id="0534de20-27b8-4e72-b272-1db99e323c3e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <coa:getTicketRequest>
+         <documentGUID>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</documentGUID>
+         <timeout_x00A0_>?</timeout_x00A0_>
+      </coa:getTicketRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="851e3487-b163-4889-98f4-0e0dd4d9d824"/><con:assertion type="Response SLA Assertion" id="7e9f046e-2313-4af2-a15d-9fcd26fb1143" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Sensitive Information Exposure" id="521cfd7c-dffe-4699-8512-595a0021d2c1" name="Sensitive Information Exposure"><con:configuration><AssertionSpecificExposureList>random###imp info</AssertionSpecificExposureList><IncludeProjectSpecific>true</IncludeProjectSpecific><IncludeGlobal>true</IncludeGlobal></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>documentGUID</con:name><con:value>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</con:value></con:property></con:properties></con:testCase><con:testCase id="8b11ef1b-2751-40a3-a7f5-1de52ef2434f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetTicketUrl" searchProperties="true"><con:settings/><con:testStep type="request" name="ticketUrl" id="bdb128c1-ac35-46af-b444-9e75fe48ecd2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>COA_Source_ws_provider_WebCATSDocumentStorageService_Binder</con:interface><con:operation>getDocumentUploadState</con:operation><con:request name="ticketUrl" id="cfcc11c5-684d-420b-8814-2c32aaf5c7f6"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <coa:getTicketedUrlRequest>
+         <documentGUID>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</documentGUID>
+      </coa:getTicketedUrlRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="9853ca94-96e8-4d16-a48f-457700440a52"/><con:assertion type="Simple Contains" id="520ae929-b86a-402e-a8b5-1a50a17cbc7e" name="Contains"><con:configuration><token>https://dev.jag.gov.bc.ca</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="a6795b0d-63da-48bd-bef7-89091ac1c47f" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:assertion type="Valid HTTP Status Codes" id="f153db48-60cb-4e51-a750-cf4b0b96f0de" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>documentGUID</con:name><con:value>tfQiHDkWWUYwd$|/6eQ1NSxB(6#CWl*RO3\@0Tq(Z\\%h7pjHZsH'}{nA#f'OS{tmT%4R!?A/nS&lt;13s^^7!'j&amp;Ap6CG`)n|H2b:;</con:value></con:property></con:properties></con:testCase><con:testCase id="112af607-154f-45be-b900-fcf784e10fe4" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="StoreDocument" searchProperties="true"><con:settings/><con:testStep type="request" name="storeDocument" id="99b53b31-b0b2-498e-964a-6f6ce77519ea"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>COA_Source_ws_provider_WebCATSDocumentStorageService_Binder</con:interface><con:operation>getDocumentUploadState</con:operation><con:request name="storeDocument" id="56cc0217-aaa8-4b64-91fc-07ac65f310bd"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:coa="http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <coa:storeDocumentAsyncRequest>
+         <base64Document>aGVsbG8K</base64Document>
+         <filename>output.pdf</filename>
+         <applicationViewGrant>WebCATS</applicationViewGrant>
+      </coa:storeDocumentAsyncRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="9d6ca26d-169a-43bf-a117-ad2ee527e758"/><con:assertion type="Valid HTTP Status Codes" id="dfc15a4f-8a1f-44f0-a0e1-7316185a8769" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Sensitive Information Exposure" id="84f7d832-eb0d-4f10-be27-ff5edc7b8414" name="Sensitive Information Exposure"><con:configuration><AssertionSpecificExposureList>random###imp content</AssertionSpecificExposureList><IncludeProjectSpecific>true</IncludeProjectSpecific><IncludeGlobal>true</IncludeGlobal></con:configuration></con:assertion><con:assertion type="Response SLA Assertion" id="9763903f-1b0e-4172-bade-21b123b0d8c7" name="Response SLA"><con:configuration><SLA>1000</SLA></con:configuration></con:assertion><con:credentials><con:username>{AUTHENTICATION_USERNAME}</con:username><con:password>{AUTHENTICATION_PASSWORD}</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties><con:property><con:name>base64Document</con:name><con:value>aGVsbG8K</con:value></con:property><con:property><con:name>filename</con:name><con:value>output.pdf</con:value></con:property><con:property><con:name>applicationViewGrant</con:name><con:value>WebCATS</con:value></con:property></con:properties></con:testCase><con:testCase id="80dab691-4aae-4626-a667-d0bdbf7c86bf" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Automation" searchProperties="true"><con:settings/><con:testStep type="groovy" name="GetDocumentUploadState" id="e3cb2f5c-33a1-42f7-9e52-a463b1f955b8"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def adReqDocState = testRunner.testCase.testSuite.testCases["GetDocumentUploadState"].testSteps["getDocState"].getPropertyValue("Request")
+ def documentGUID=testRunner.testCase.testSuite.testCases["GetDocumentUploadState"].getPropertyValue("documentGUID")
+ def xmlGet= new XmlHolder(adReqDocState)
+ xmlGet.setNodeValue("//coa:getDocumentUploadStateRequest/documentGUID",documentGUID)
+ def newxmlGet= xmlGet.getXml();
+ //get the xml and pass the GUID value
+ testRunner.testCase.testSuite.testCases["GetDocumentUploadState"].testSteps["getDocState"].setPropertyValue("Request",newxmlGet)
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetDocumentUploadState"].testSteps["getDocState"]
+ def contextGetDocumentUploadState= new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetDocumentUploadState)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetDocumentUploadState"].testSteps["getDocState"].getPropertyValue("Response")
+ 
+def getDocumentUploadStateRes= new XmlHolder(getRes)
+def GetResponse= getDocumentUploadStateRes.getNodeValue("//state")
+log.info GetResponse
+assert GetResponse=="COMPLETE"
+
+</script></con:config></con:testStep><con:testStep type="groovy" name="getFileMime" id="4d35b1ad-a6c5-47e1-84ec-dacc1a930052"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def addReqFile = testRunner.testCase.testSuite.testCases["GetFileMime"].testSteps["getFile"].getPropertyValue("Request")
+ def documentGUID=testRunner.testCase.testSuite.testCases["GetFileMime"].getPropertyValue("documentGUID")
+ //log.info documentGUID
+ def xmlGet= new XmlHolder(addReqFile)
+ xmlGet.setNodeValue("//coa:getFileMimeRequest/documentGUID",documentGUID)
+ def newxmlGet= xmlGet.getXml();
+ log.info newxmlGet
+ //get the xml and pass the GUID value
+ testRunner.testCase.testSuite.testCases["GetFileMime"].testSteps["getFile"].setPropertyValue("Request",newxmlGet)
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetFileMime"].testSteps["getFile"]
+ def contextGetFileMime= new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetFileMime)
+ //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetFileMime"].testSteps["getFile"].getPropertyValue("Response")
+ 
+def getDocumentUploadStateRes= new XmlHolder(getRes)
+def GetResponse= getDocumentUploadStateRes.getNodeValue("//mime")
+log.info GetResponse
+assert GetResponse=="application/pdf"</script></con:config></con:testStep><con:testStep type="groovy" name="getFileSize" id="0a007ff7-baea-4827-b0a2-fa8610a50b59"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def addReqFile = testRunner.testCase.testSuite.testCases["GetFileSize"].testSteps["getFileSizeStep"].getPropertyValue("Request")
+ def documentGUID=testRunner.testCase.testSuite.testCases["GetFileSize"].getPropertyValue("documentGUID")
+ //log.info documentGUID
+ def xmlGet= new XmlHolder(addReqFile)
+ xmlGet.setNodeValue("//coa:getFileSizeRequest/documentGUID",documentGUID)
+ def newxmlGet= xmlGet.getXml();
+ log.info newxmlGet
+ //get the xml and pass the GUID value
+ testRunner.testCase.testSuite.testCases["GetFileSize"].testSteps["getFileSizeStep"].setPropertyValue("Request",newxmlGet)
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetFileSize"].testSteps["getFileSizeStep"]
+ def contextGetFileMime= new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetFileMime)
+  //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetFileSize"].testSteps["getFileSizeStep"].getPropertyValue("Response")
+ 
+def getDocumentUploadStateRes= new XmlHolder(getRes)
+def GetResponse= getDocumentUploadStateRes.getNodeValue("//size")
+log.info GetResponse
+assert GetResponse=="67587"</script></con:config></con:testStep><con:testStep type="groovy" name="getTicket" id="6d85d29f-22e6-48e4-857a-9aabda032254"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def addReqFile = testRunner.testCase.testSuite.testCases["GetTicket"].testSteps["getTicket"].getPropertyValue("Request")
+ def documentGUID=testRunner.testCase.testSuite.testCases["GetTicket"].getPropertyValue("documentGUID")
+ //log.info documentGUID
+ def xmlGet= new XmlHolder(addReqFile)
+ xmlGet.setNodeValue("//coa:getTicketRequest/documentGUID",documentGUID)
+ def newxmlGet= xmlGet.getXml();
+ log.info newxmlGet
+ //get the xml and pass the GUID value
+ testRunner.testCase.testSuite.testCases["GetTicket"].testSteps["getTicket"].setPropertyValue("Request",newxmlGet)
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetTicket"].testSteps["getTicket"]
+ def contextGetFileMime= new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetFileMime)
+   //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetTicket"].testSteps["getTicket"].getPropertyValue("Response")
+ 
+def getDocumentUploadStateRes= new XmlHolder(getRes)
+def GetResponse= getDocumentUploadStateRes.getNodeValue("//ticket")
+log.info GetResponse
+assert GetResponse != null</script></con:config></con:testStep><con:testStep type="groovy" name="getTicketUrl" id="464da6d7-c791-445c-9fdb-7ca0c61c3114"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def addReqFile = testRunner.testCase.testSuite.testCases["GetTicketUrl"].testSteps["ticketUrl"].getPropertyValue("Request")
+ def documentGUID=testRunner.testCase.testSuite.testCases["GetTicketUrl"].getPropertyValue("documentGUID")
+ //log.info documentGUID
+ def xmlGet= new XmlHolder(addReqFile)
+ xmlGet.setNodeValue("//coa:getTicketedUrlRequest/documentGUID",documentGUID)
+ def newxmlGet= xmlGet.getXml();
+ log.info newxmlGet
+ //get the xml and pass the GUID value
+ testRunner.testCase.testSuite.testCases["GetTicketUrl"].testSteps["ticketUrl"].setPropertyValue("Request",newxmlGet)
+ def getTestStep=testRunner.testCase.testSuite.testCases["GetTicketUrl"].testSteps["ticketUrl"]
+ def contextGetFileMime= new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetFileMime)
+   //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["GetTicketUrl"].testSteps["ticketUrl"].getPropertyValue("Response")
+ def getDocumentUploadStateRes= new XmlHolder(getRes)
+ def GetResponse= getDocumentUploadStateRes.getNodeValue("//ticketedUrl")
+ log.info GetResponse
+ assert GetResponse != null</script></con:config></con:testStep><con:testStep type="groovy" name="StoreDocument" id="f55814ab-da5d-4a5e-8a4e-e12d064f0b5b"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext
+
+ def addReqFile = testRunner.testCase.testSuite.testCases["StoreDocument"].testSteps["storeDocument"].getPropertyValue("Request")
+ def base64Document=testRunner.testCase.testSuite.testCases["StoreDocument"].getPropertyValue("base64Document")
+ def filename=testRunner.testCase.testSuite.testCases["StoreDocument"].getPropertyValue("filename")
+ def applicationViewGrant=testRunner.testCase.testSuite.testCases["StoreDocument"].getPropertyValue("applicationViewGrant")
+ //log.info documentGUID
+ def xmlGet= new XmlHolder(addReqFile)
+ xmlGet.setNodeValue("//coa:storeDocumentAsyncRequest/base64Document",base64Document)
+ xmlGet.setNodeValue("//coa:storeDocumentAsyncRequest/filename",filename)
+ xmlGet.setNodeValue("//coa:storeDocumentAsyncRequest/applicationViewGrant",applicationViewGrant)
+ def newxmlGet= xmlGet.getXml();
+ log.info newxmlGet
+ //get the xml and pass the GUID value
+ testRunner.testCase.testSuite.testCases["StoreDocument"].testSteps["storeDocument"].setPropertyValue("Request",newxmlGet)
+ def getTestStep=testRunner.testCase.testSuite.testCases["StoreDocument"].testSteps["storeDocument"]
+ def contextGetFileMime= new WsdlTestRunContext(getTestStep);
+ getTestStep.run(testRunner,contextGetFileMime)
+    //Validation -
+ def getRes=testRunner.testCase.testSuite.testCases["StoreDocument"].testSteps["storeDocument"].getPropertyValue("Response")
+ def getDocumentUploadStateRes= new XmlHolder(getRes)
+ def GetResponse= getDocumentUploadStateRes.getNodeValue("//documentGUID")
+ log.info GetResponse
+ assert GetResponse != null</script></con:config></con:testStep><con:properties/></con:testCase><con:properties><con:property><con:name>GUID</con:name><con:value>1</con:value></con:property></con:properties></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
