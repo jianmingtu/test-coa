@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 @Service
 public class TestService {
@@ -17,14 +18,15 @@ public class TestService {
     public TestService() {}
 
     public void setAuthentication() throws IOException {
-        File template =
-                new File(
-                        "AutomatedTest/src/main/resources/SoapUiFile/coa-soapui-project-template.xml");
+        File template = ResourceUtils.getFile("classpath:coa-soapui-project-template.xml");
         Scanner scanner = new Scanner(template);
-        BufferedWriter writer =
-                new BufferedWriter(
-                        new FileWriter(
-                                "AutomatedTest/src/main/resources/SoapUiFile/coa-soapui-project.xml"));
+
+        File project = new File("./coa-soapui-project.xml");
+        if (project.exists()) {
+            project.delete();
+        }
+        project.createNewFile();
+        BufferedWriter writer = new BufferedWriter(new FileWriter("./coa-soapui-project.xml"));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.contains("{AUTHENTICATION_USERNAME}")) {
@@ -33,7 +35,7 @@ public class TestService {
             if (line.contains("{AUTHENTICATION_PASSWORD}")) {
                 line = line.replaceAll("\\{AUTHENTICATION_PASSWORD}", password);
             }
-            writer.append(line);
+            writer.append(line + "\n");
         }
         writer.flush();
         writer.close();
@@ -41,10 +43,13 @@ public class TestService {
     }
 
     public void runAllTests() throws Exception {
-
-        // locate the project
-        SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
-        runner.setProjectFile("AutomatedTest/src/main/resources/SoapUiFile/coa-soapui-project.xml");
-        runner.run();
+        try {
+            // locate the project
+            SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
+            runner.setProjectFile("coa-soapui-project.xml");
+            runner.run();
+            var l = runner.getFailedTests();
+        } catch (Exception ignored) {
+        }
     }
 }
