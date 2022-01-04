@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 @Service
 public class TestService {
@@ -18,7 +17,7 @@ public class TestService {
     public TestService() {}
 
     public void setAuthentication() throws IOException {
-        File template = ResourceUtils.getFile("classpath:coa-soapui-project-template.xml");
+        InputStream template = getClass().getResourceAsStream("/coa-soapui-project-template.xml");
         Scanner scanner = new Scanner(template);
 
         File project = new File("./coa-soapui-project.xml");
