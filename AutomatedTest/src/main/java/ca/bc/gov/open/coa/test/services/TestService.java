@@ -14,6 +14,9 @@ public class TestService {
     @Value("${test.password}")
     private String password;
 
+    @Value("${test.api-host}")
+    private String apiHost;
+
     public TestService() {}
 
     public void setAuthentication() throws IOException {
@@ -33,6 +36,9 @@ public class TestService {
             }
             if (line.contains("{AUTHENTICATION_PASSWORD}")) {
                 line = line.replaceAll("\\{AUTHENTICATION_PASSWORD}", password);
+            }
+            if (line.contains("{API_HOST}")) {
+                line = line.replaceAll("\\{API_HOST}", apiHost);
             }
             writer.append(line + "\n");
         }
