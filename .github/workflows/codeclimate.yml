@@ -4,23 +4,30 @@ name: CodeClimate Workflow
 # Triggers that controls when the workflow will run
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
-      
+
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    
+
     env:
       FILE_COUNTER: 0
       CC_TEST_REPORTER_ID: eb7c765c51165379358ea756d0632dac01905a08870e6321482d9bc3b7501d8b
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
+      OBJ_STORE_PSW: ${{secrets.OBJ_STORE_PSW}}
+      OBJ_STORE_APP_ID: ${{secrets.OBJ_STORE_APP_ID}}
+      OBJ_STORE_DB_ID: ${{secrets.OBJ_STORE_DB_ID}}
+      OBJ_STORE_USER: ${{secrets.OBJ_STORE_USER}}
+      OBJ_STORE_VERSION: ${{secrets.OBJ_STORE_VERSION}}
+      OBJ_STORE_TICKET_LIFETIME: ${{secrets.OBJ_STORE_TICKET_LIFETIME}}
+
       ACTION_DEBUG: true
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -34,19 +41,19 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-          
+
       # Get Code Climate binary
       - name: Download Code Climate Binary
         run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        
+
       # Permissions applied to the Code Climate Executable
       - name: Apply executable perms to Code Climate Binary
-        run: chmod +x ./cc-test-reporter    
-      
+        run: chmod +x ./cc-test-reporter
+
       # Before build
       - name: Before build
         run: ./cc-test-reporter before-build
-        
+
       # Set required Git env vars for either pull request
       - name: Set ENV for codeclimate (pull_request)
         run: |
@@ -71,24 +78,24 @@ jobs:
           echo "GIT_BRANCH=master" >> $GITHUB_ENV
           #echo "::set-env name=GIT_BRANCH::main"
         if: env.GIT_BRANCH == 'refs/heads/main'
-        
+
       - name: Run Maven Test
         run: mvn -ntp test
-        
+
       - name: Run jacoco report
         run: mvn -ntp jacoco:report
-        
+
         # Formatting the Code Coverage Report
       - name: Format the coverage report
         run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage ./target/site/jacoco/jacoco.xml -t jacoco -o ./target/site/jacoco/codeclimate.json
-        
+
         # Upload JSON for debugging purposes
       - name: Upload JSON for debugging purposes
         uses: actions/upload-artifact@v2
         with:
           name: coa-coverage-report
           path: ./target/site/jacoco/codeclimate.json
-      
+
       # Upload total coverage report to Code Climate
       - name: Upload coverage report to Code Climate
         run: ./cc-test-reporter upload-coverage -i ./target/site/jacoco/codeclimate.json

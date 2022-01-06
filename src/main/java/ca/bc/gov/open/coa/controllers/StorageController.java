@@ -46,7 +46,7 @@ public class StorageController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getDocumentUploadStateRequest")
     @ResponsePayload
-    public GetDocumentUploadStateResponse getDocumentUploadStateRequest(
+    public GetDocumentUploadStateResponse getDocumentUploadState(
             @RequestPayload GetDocumentUploadStateRequest search) throws JsonProcessingException {
         addEndpointHeader("GetDocumentUploadStateRequest");
 
@@ -87,7 +87,7 @@ public class StorageController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "storeDocumentAsyncRequest")
     @ResponsePayload
-    public StoreDocumentAsyncResponse storeDocumentAsyncRequest(
+    public StoreDocumentAsyncResponse storeDocumentAsync(
             @RequestPayload StoreDocumentAsyncRequest search) throws JsonProcessingException {
         addEndpointHeader("StoreDocumentAsyncRequest");
 
@@ -121,7 +121,7 @@ public class StorageController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "storeDocumentRequest")
     @ResponsePayload
-    public StoreDocumentResponse storeDocumentRequest(@RequestPayload StoreDocumentRequest search)
+    public StoreDocumentResponse storeDocument(@RequestPayload StoreDocumentRequest search)
             throws JsonProcessingException {
         addEndpointHeader("StoreDocumentResponse");
 
