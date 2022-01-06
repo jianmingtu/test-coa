@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
         inputs:
             app:
-                description: 'App Name (jag-coa)'
+                description: 'App Name (jag-coa/jag-coa-tests)'
                 required: true
                 default: 'jag-coa'
             imageSourceEnv:
