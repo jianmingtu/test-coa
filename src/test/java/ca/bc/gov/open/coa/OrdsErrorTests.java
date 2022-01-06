@@ -118,7 +118,7 @@ public class OrdsErrorTests {
     }
 
     @Test
-    public void securityTestFail_Then403() throws Exception {
+    public void securityTestFail_Then401() throws Exception {
         var response =
                 mockMvc.perform(post("/ws").contentType(MediaType.TEXT_XML))
                         .andExpect(status().is4xxClientError())
