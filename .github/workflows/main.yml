@@ -26,12 +26,12 @@ jobs:
     env:
       BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
       BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
-      OBJECT_STORE_PSW: ${{secrets.OBJ_STORE_PSW}}
-      OBJECT_STORE_APP_ID: ${{secrets.OBJ_STORE_APP_ID}}
-      OBJECT_STORE_DB_ID: ${{secrets.OBJ_STORE_DB_ID}}
-      OBJECT_STORE_USER: ${{secrets.OBJ_STORE_USER}}
-      OBJECT_STORE_VERSION: ${{secrets.OBJ_STORE_VERSION}}
-      OBJECT_STORE_TICKET_LIFETIME: ${{secrets.OBJ_STORE_TICKET_LIFETIME}}
+      OBJ_STORE_PSW: ${{secrets.OBJ_STORE_PSW}}
+      OBJ_STORE_APP_ID: ${{secrets.OBJ_STORE_APP_ID}}
+      OBJ_STORE_DB_ID: ${{secrets.OBJ_STORE_DB_ID}}
+      OBJ_STORE_USER: ${{secrets.OBJ_STORE_USER}}
+      OBJ_STORE_VERSION: ${{secrets.OBJ_STORE_VERSION}}
+      OBJ_STORE_TICKET_LIFETIME: ${{secrets.OBJ_STORE_TICKET_LIFETIME}}
 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
