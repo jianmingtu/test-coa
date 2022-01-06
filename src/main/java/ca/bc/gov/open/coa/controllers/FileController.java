@@ -47,7 +47,7 @@ public class FileController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileMimeRequest")
     @ResponsePayload
-    public GetFileMimeResponse getFileMimeRequest(@RequestPayload GetFileMimeRequest search)
+    public GetFileMimeResponse getFileMime(@RequestPayload GetFileMimeRequest search)
             throws JsonProcessingException {
         addEndpointHeader("GetFileMimeRequest");
 
@@ -87,7 +87,7 @@ public class FileController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileSizeRequest")
     @ResponsePayload
-    public GetFileSizeResponse getFileSizeRequest(@RequestPayload GetFileSizeRequest search)
+    public GetFileSizeResponse getFileSize(@RequestPayload GetFileSizeRequest search)
             throws JsonProcessingException {
         addEndpointHeader("GetFileSizeRequest");
 
