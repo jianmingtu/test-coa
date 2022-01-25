@@ -118,6 +118,36 @@ objects:
                 secretKeyRef:
                   name: coa-application-secrets
                   key: ORDS_HOST
+            - name: OBJ_STORE_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: OBJ_STORE_APP_ID
+            - name: OBJ_STORE_DB_ID
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: OBJ_STORE_DB_ID
+            - name: OBJ_STORE_PSW
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: OBJ_STORE_PSW
+            - name: OBJ_STORE_TICKET_LIFETIME
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: OBJ_STORE_TICKET_LIFETIME
+            - name: OBJ_STORE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: OBJ_STORE_USER
+            - name: OBJ_STORE_VERSION
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: OBJ_STORE_VERSION
             resources:
               limits:
                 cpu: 500m
