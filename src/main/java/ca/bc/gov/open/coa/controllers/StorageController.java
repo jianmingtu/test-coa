@@ -1,9 +1,11 @@
 package ca.bc.gov.open.coa.controllers;
 
+import ca.bc.gov.open.coa.configuration.CoaConfig;
 import ca.bc.gov.open.coa.configuration.SoapConfig;
 import ca.bc.gov.open.coa.exceptions.ORDSException;
 import ca.bc.gov.open.coa.models.OrdsErrorLog;
 import ca.bc.gov.open.coa.models.RequestSuccessLog;
+import ca.bc.gov.open.coa.models.StoreDocumentBody;
 import ca.bc.gov.open.coa.one.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,25 +34,36 @@ public class StorageController {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final CoaConfig coaConfig;
 
     @Autowired
-    public StorageController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public StorageController(
+            RestTemplate restTemplate, ObjectMapper objectMapper, CoaConfig coaConfig) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.coaConfig = coaConfig;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getDocumentUploadStateRequest")
     @ResponsePayload
-    public GetDocumentUploadStateResponse getDocumentUploadStateRequest(
+    public GetDocumentUploadStateResponse getDocumentUploadState(
             @RequestPayload GetDocumentUploadStateRequest search) throws JsonProcessingException {
         addEndpointHeader("GetDocumentUploadStateRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "doc/state")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("version", coaConfig.getCoaVersion())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
 
         try {
             HttpEntity<GetDocumentUploadStateResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetDocumentUploadStateResponse.class);
@@ -74,18 +87,20 @@ public class StorageController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "storeDocumentAsyncRequest")
     @ResponsePayload
-    public StoreDocumentAsyncResponse storeDocumentAsyncRequest(
+    public StoreDocumentAsyncResponse storeDocumentAsync(
             @RequestPayload StoreDocumentAsyncRequest search) throws JsonProcessingException {
         addEndpointHeader("StoreDocumentAsyncRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc/async");
+        HttpEntity<StoreDocumentBody> payload =
+                new HttpEntity<>(new StoreDocumentBody(search, coaConfig), new HttpHeaders());
 
         try {
             HttpEntity<StoreDocumentAsyncResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
+                            builder.build().encode().toUri(),
+                            HttpMethod.POST,
+                            payload,
                             StoreDocumentAsyncResponse.class);
 
             log.info(
@@ -106,18 +121,20 @@ public class StorageController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "storeDocumentRequest")
     @ResponsePayload
-    public StoreDocumentResponse storeDocumentRequest(@RequestPayload StoreDocumentRequest search)
+    public StoreDocumentResponse storeDocument(@RequestPayload StoreDocumentRequest search)
             throws JsonProcessingException {
         addEndpointHeader("StoreDocumentResponse");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc");
+        HttpEntity<StoreDocumentBody> payload =
+                new HttpEntity<>(new StoreDocumentBody(search, coaConfig), new HttpHeaders());
 
         try {
             HttpEntity<StoreDocumentResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
-                            HttpMethod.GET,
-                            new HttpEntity<>(new HttpHeaders()),
+                            builder.build().encode().toUri(),
+                            HttpMethod.POST,
+                            payload,
                             StoreDocumentResponse.class);
 
             log.info(

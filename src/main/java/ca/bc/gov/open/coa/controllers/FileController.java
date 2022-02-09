@@ -1,5 +1,6 @@
 package ca.bc.gov.open.coa.controllers;
 
+import ca.bc.gov.open.coa.configuration.CoaConfig;
 import ca.bc.gov.open.coa.configuration.SoapConfig;
 import ca.bc.gov.open.coa.exceptions.ORDSException;
 import ca.bc.gov.open.coa.models.OrdsErrorLog;
@@ -34,25 +35,36 @@ public class FileController {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final CoaConfig coaConfig;
 
     @Autowired
-    public FileController(RestTemplate restTemplate, ObjectMapper objectMapper) {
+    public FileController(
+            RestTemplate restTemplate, ObjectMapper objectMapper, CoaConfig coaConfig) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.coaConfig = coaConfig;
     }
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileMimeRequest")
     @ResponsePayload
-    public GetFileMimeResponse getFileMimeRequest(@RequestPayload GetFileMimeRequest search)
+    public GetFileMimeResponse getFileMime(@RequestPayload GetFileMimeRequest search)
             throws JsonProcessingException {
         addEndpointHeader("GetFileMimeRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "file/mime")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("version", coaConfig.getCoaVersion())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
 
         try {
             HttpEntity<GetFileMimeResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetFileMimeResponse.class);
@@ -75,16 +87,24 @@ public class FileController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getFileSizeRequest")
     @ResponsePayload
-    public GetFileSizeResponse getFileSizeRequest(@RequestPayload GetFileSizeRequest search)
+    public GetFileSizeResponse getFileSize(@RequestPayload GetFileSizeRequest search)
             throws JsonProcessingException {
         addEndpointHeader("GetFileSizeRequest");
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "court-list");
+        UriComponentsBuilder builder =
+                UriComponentsBuilder.fromHttpUrl(host + "file/size")
+                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam("appId", coaConfig.getCoaAppId())
+                        .queryParam("password", coaConfig.getCoaPassword())
+                        .queryParam("userName", coaConfig.getCoaUsername())
+                        .queryParam("version", coaConfig.getCoaVersion())
+                        .queryParam("databaseId", coaConfig.getCoaDatabaseId())
+                        .queryParam("ticketLifetime", coaConfig.getCoaTicketLifeTime());
 
         try {
             HttpEntity<GetFileSizeResponse> resp =
                     restTemplate.exchange(
-                            builder.toUriString(),
+                            builder.build().encode().toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetFileSizeResponse.class);
