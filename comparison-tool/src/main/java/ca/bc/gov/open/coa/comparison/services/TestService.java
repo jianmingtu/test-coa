@@ -55,12 +55,12 @@ public class TestService {
 
     public void runCompares() throws IOException {
         System.out.println("INFO: COA Diff testing started");
-        //Test data needed
-        //getFileMimeCompare();
-        //getFileSizeCompare();
 
-        //getTicketCompare();
-        //getTicketedUrlCompare();
+        getFileMimeCompare();
+        getFileSizeCompare();
+
+        getTicketCompare();
+        getTicketedUrlCompare();
 
         getDocumentUploadStateCompare();
     }
