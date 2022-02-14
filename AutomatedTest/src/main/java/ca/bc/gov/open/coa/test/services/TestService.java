@@ -3,6 +3,10 @@ package ca.bc.gov.open.coa.test.services;
 import com.eviware.soapui.tools.SoapUITestCaseRunner;
 import java.io.*;
 import java.util.Scanner;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -47,14 +51,54 @@ public class TestService {
         scanner.close();
     }
 
-    public void runAllTests() throws Exception {
+    private File zipAndReturnErrors() throws IOException {
+        File dir = new File(".");
+        FileFilter fileFilter = new WildcardFileFilter("*PCSS*-FAILED.txt");
+        File[] files = dir.listFiles(fileFilter);
+        if (files == null || files.length == 0) {
+            return null;
+        }
+        sanitizeErrorFiles(files);
+        FileOutputStream fos = new FileOutputStream("TestErrors.zip");
+        ZipOutputStream zipOut = new ZipOutputStream(fos);
+        File fOut = new File("TestErrors.zip");
+
+        for (var fileToZip : files) {
+            FileInputStream fis = new FileInputStream(fileToZip);
+            ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+            zipOut.putNextEntry(zipEntry);
+
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fis.read(bytes)) >= 0) {
+                zipOut.write(bytes, 0, length);
+            }
+            fis.close();
+            fileToZip.delete();
+        }
+        zipOut.close();
+        fos.close();
+        return fOut;
+    }
+
+    private void sanitizeErrorFiles(File[] files) throws IOException {
+        for (File f : files) {
+            String fileContent = FileUtils.readFileToString(f);
+            fileContent = fileContent.replaceAll(username, "*".repeat(8));
+            fileContent = fileContent.replaceAll(password, "*".repeat(8));
+            FileUtils.write(f, fileContent);
+        }
+    }
+
+    public File runAllTests() throws Exception {
+        // locate the project
+        SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
+        runner.setProjectFile("coa-soapui-project.xml");
         try {
-            // locate the project
-            SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
-            runner.setProjectFile("coa-soapui-project.xml");
             runner.run();
-            var l = runner.getFailedTests();
+            return null;
         } catch (Exception ignored) {
+            return zipAndReturnErrors();
         }
     }
 }
