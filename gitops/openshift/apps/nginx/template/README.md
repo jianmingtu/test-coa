@@ -6,7 +6,7 @@
 
 ### Command to execute template
 1) Login to OC using login command
-2) Run below command in each env. namespace dev/test/prod/tools
+2) Run below command in each env. namespace dev/test/prod
    ``oc process -f nginx_jag_coa.yaml --param-file=nginx_jag_coa.env | oc apply -f -``
 
 ### Template for Nginx 2 - To reverse proxy the traffic from Nginx 1 to the old webmethods api.
@@ -14,6 +14,6 @@
 
 ### Command to execute template
 1) Login to OC using login command
-2) Run below command in each env. namespace dev/test/prod/tools
+2) Run below command in each env. namespace dev/test/prod
    ``oc process -f nginx_jag_coa_oldwm.yaml --param-file=nginx_jag_coa_oldwm.env | oc apply -f -``
 

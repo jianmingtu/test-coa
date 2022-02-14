@@ -45,8 +45,8 @@ public class TicketController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getTicketedUrlRequest")
     @ResponsePayload
-    public GetTicketedUrlResponse getTicketedUrlRequest(
-            @RequestPayload GetTicketedUrlRequest search) throws JsonProcessingException {
+    public GetTicketedUrlResponse getTicketedUrl(@RequestPayload GetTicketedUrlRequest search)
+            throws JsonProcessingException {
         addEndpointHeader("GetTicketedUrlRequest");
 
         UriComponentsBuilder builder =
@@ -88,7 +88,7 @@ public class TicketController {
 
     @PayloadRoot(namespace = SoapConfig.SOAP_NAMESPACE, localPart = "getTicketRequest")
     @ResponsePayload
-    public GetTicketResponse getTicketRequest(@RequestPayload GetTicketRequest search)
+    public GetTicketResponse getTicket(@RequestPayload GetTicketRequest search)
             throws JsonProcessingException {
         addEndpointHeader("GetTicketRequest");
 
