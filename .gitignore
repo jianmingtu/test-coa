@@ -36,5 +36,10 @@ build/
 /AutomatedTests/cypress/videos/
 /AutomatedTests/cypress/screenshots/
 cc-test-reporter
+/soapui.log
+/soapui-errors.log
+TestSuite_COA*
+/coa-soapui-project.xml
+/global-groovy.log
 /comparison-tool/results/*.txt
 
