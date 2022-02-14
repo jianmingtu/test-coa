@@ -53,7 +53,7 @@ public class TestService {
 
     private File zipAndReturnErrors() throws IOException {
         File dir = new File(".");
-        FileFilter fileFilter = new WildcardFileFilter("*PCSS*-FAILED.txt");
+        FileFilter fileFilter = new WildcardFileFilter("*COA*-FAILED.txt");
         File[] files = dir.listFiles(fileFilter);
         if (files == null || files.length == 0) {
             return null;
