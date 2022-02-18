@@ -24,12 +24,6 @@
         </dependency>
 
         <dependency>
-            <groupId>ca.bc.gov.open</groupId>
-            <artifactId>jag-coa</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
@@ -53,6 +47,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ca.bc.gov.open</groupId>
+            <artifactId>jag-coa-application</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
