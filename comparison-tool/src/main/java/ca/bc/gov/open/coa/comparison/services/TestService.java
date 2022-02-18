@@ -3,7 +3,6 @@ package ca.bc.gov.open.coa.comparison.services;
 import ca.bc.gov.open.coa.comparison.config.DualProtocolSaajSoapMessageFactory;
 import ca.bc.gov.open.coa.comparison.config.WebServiceSenderWithAuth;
 import java.io.*;
-import java.time.Instant;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -84,7 +83,7 @@ public class TestService {
                     "\nINFO: GetDocumentUploadState with DocumentGUID: "
                             + line);
 
-            String[] contextPath = {"ca.bc.gov.open.wsdl.coa.one"};
+            String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetDocumentUploadStateResponse(), request, contextPath)) {
                 fileOutput.println(
