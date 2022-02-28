@@ -2,12 +2,10 @@ package ca.bc.gov.open.coa.comparison.services;
 
 import ca.bc.gov.open.coa.comparison.config.DualProtocolSaajSoapMessageFactory;
 import ca.bc.gov.open.coa.comparison.config.WebServiceSenderWithAuth;
+import ca.bc.gov.open.coa.one.*;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Stream;
-
-import ca.bc.gov.open.coa.one.*;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
 import org.javers.core.diff.Change;
@@ -20,7 +18,6 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.SoapVersion;
-import org.springframework.ws.transport.http.HttpComponentsMessageSender;
 
 @Service
 public class TestService {
@@ -64,12 +61,14 @@ public class TestService {
         getDocumentUploadStateCompare();
     }
 
-    private void getDocumentUploadStateCompare() throws FileNotFoundException, UnsupportedEncodingException {
+    private void getDocumentUploadStateCompare()
+            throws FileNotFoundException, UnsupportedEncodingException {
         int diffCounter = 0;
 
         GetDocumentUploadStateRequest request = new GetDocumentUploadStateRequest();
 
-        InputStream inputIds = getClass().getResourceAsStream("/getDocumentUploadStateDocumentGUID.csv");
+        InputStream inputIds =
+                getClass().getResourceAsStream("/getDocumentUploadStateDocumentGUID.csv");
         assert inputIds != null;
         Scanner scanner = new Scanner(inputIds);
 
@@ -79,17 +78,13 @@ public class TestService {
             String line = scanner.nextLine();
             request.setDocumentGUID(line);
 
-            System.out.println(
-                    "\nINFO: GetDocumentUploadState with DocumentGUID: "
-                            + line);
+            System.out.println("\nINFO: GetDocumentUploadState with DocumentGUID: " + line);
 
             String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetDocumentUploadStateResponse(), request, contextPath)) {
                 fileOutput.println(
-                        "INFO: GetDocumentUploadState with DocumentGUID: "
-                                + line
-                                + "\n\n");
+                        "INFO: GetDocumentUploadState with DocumentGUID: " + line + "\n\n");
                 ++diffCounter;
             }
         }
@@ -112,7 +107,8 @@ public class TestService {
         fileOutput.close();
     }
 
-    private void getTicketedUrlCompare() throws FileNotFoundException, UnsupportedEncodingException {
+    private void getTicketedUrlCompare()
+            throws FileNotFoundException, UnsupportedEncodingException {
         int diffCounter = 0;
 
         GetTicketedUrlRequest request = new GetTicketedUrlRequest();
@@ -127,17 +123,12 @@ public class TestService {
             String line = scanner.nextLine();
             request.setDocumentGUID(line);
 
-            System.out.println(
-                    "\nINFO: GetTicketedUrl with DocumentGUID: "
-                            + line);
+            System.out.println("\nINFO: GetTicketedUrl with DocumentGUID: " + line);
 
             String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetTicketedUrlResponse(), request, contextPath)) {
-                fileOutput.println(
-                        "INFO: GetTicketedUrl with DocumentGUID: "
-                                + line
-                                + "\n\n");
+                fileOutput.println("INFO: GetTicketedUrl with DocumentGUID: " + line + "\n\n");
                 ++diffCounter;
             }
         }
@@ -175,17 +166,12 @@ public class TestService {
             String line = scanner.nextLine();
             request.setDocumentGUID(line);
 
-            System.out.println(
-                    "\nINFO: GetTicket with DocumentGUID: "
-                            + line);
+            System.out.println("\nINFO: GetTicket with DocumentGUID: " + line);
 
             String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetTicketResponse(), request, contextPath)) {
-                fileOutput.println(
-                        "INFO: GetTicket with DocumentGUID: "
-                                + line
-                                + "\n\n");
+                fileOutput.println("INFO: GetTicket with DocumentGUID: " + line + "\n\n");
                 ++diffCounter;
             }
         }
@@ -223,17 +209,12 @@ public class TestService {
             String line = scanner.nextLine();
             request.setDocumentGUID(line);
 
-            System.out.println(
-                    "\nINFO: GetFileSize with DocumentGUID: "
-                            + line);
+            System.out.println("\nINFO: GetFileSize with DocumentGUID: " + line);
 
             String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetFileSizeResponse(), request, contextPath)) {
-                fileOutput.println(
-                        "INFO: GetFileSize with DocumentGUID: "
-                                + line
-                                + "\n\n");
+                fileOutput.println("INFO: GetFileSize with DocumentGUID: " + line + "\n\n");
                 ++diffCounter;
             }
         }
@@ -271,17 +252,12 @@ public class TestService {
             String line = scanner.nextLine();
             request.setDocumentGUID(line);
 
-            System.out.println(
-                    "\nINFO: GetFileMime with DocumentGUID: "
-                            + line);
+            System.out.println("\nINFO: GetFileMime with DocumentGUID: " + line);
 
             String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetFileMimeResponse(), request, contextPath)) {
-                fileOutput.println(
-                        "INFO: GetFileMime with DocumentGUID: "
-                                + line
-                                + "\n\n");
+                fileOutput.println("INFO: GetFileMime with DocumentGUID: " + line + "\n\n");
                 ++diffCounter;
             }
         }
