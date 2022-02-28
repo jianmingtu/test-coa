@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>ca.bc.gov.open</groupId>
-            <artifactId>jag-coa-application</artifactId>
+            <artifactId>coa-common-models</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
