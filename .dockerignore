@@ -2,4 +2,4 @@
 *
 
 # Allow files and directories
-!./target/coa-application.jar
+!./target/jag-coa-application.jar

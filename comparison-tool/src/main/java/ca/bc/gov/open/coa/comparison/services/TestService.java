@@ -131,7 +131,7 @@ public class TestService {
                     "\nINFO: GetTicketedUrl with DocumentGUID: "
                             + line);
 
-            String[] contextPath = {"ca.bc.gov.open.wsdl.coa.one"};
+            String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetTicketedUrlResponse(), request, contextPath)) {
                 fileOutput.println(
@@ -179,7 +179,7 @@ public class TestService {
                     "\nINFO: GetTicket with DocumentGUID: "
                             + line);
 
-            String[] contextPath = {"ca.bc.gov.open.wsdl.coa.one"};
+            String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetTicketResponse(), request, contextPath)) {
                 fileOutput.println(
@@ -227,7 +227,7 @@ public class TestService {
                     "\nINFO: GetFileSize with DocumentGUID: "
                             + line);
 
-            String[] contextPath = {"ca.bc.gov.open.wsdl.coa.one"};
+            String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetFileSizeResponse(), request, contextPath)) {
                 fileOutput.println(
@@ -275,7 +275,7 @@ public class TestService {
                     "\nINFO: GetFileMime with DocumentGUID: "
                             + line);
 
-            String[] contextPath = {"ca.bc.gov.open.wsdl.coa.one"};
+            String[] contextPath = {"ca.bc.gov.open.coa.one"};
 
             if (!compare(new GetFileMimeResponse(), request, contextPath)) {
                 fileOutput.println(
@@ -310,12 +310,8 @@ public class TestService {
 
         DualProtocolSaajSoapMessageFactory saajSoapMessageFactory =
                 new DualProtocolSaajSoapMessageFactory();
-        saajSoapMessageFactory.setSoapVersion(SoapVersion.SOAP_12);
+        saajSoapMessageFactory.setSoapVersion(SoapVersion.SOAP_11);
         saajSoapMessageFactory.afterPropertiesSet();
-
-        HttpComponentsMessageSender httpComponentsMessageSender = new HttpComponentsMessageSender();
-        httpComponentsMessageSender.setCredentials(
-                new UsernamePasswordCredentials(username, password));
 
         webServiceTemplate.setMessageSender(webServiceSenderWithAuth);
         webServiceTemplate.setMessageFactory(saajSoapMessageFactory);
