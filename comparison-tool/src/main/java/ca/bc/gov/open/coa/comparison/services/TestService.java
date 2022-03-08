@@ -49,7 +49,7 @@ public class TestService {
 
     private int overallDiff = 0;
 
-    public void runCompares() throws IOException {
+    public void runCompares() throws Exception {
         System.out.println("INFO: COA Diff testing started");
 
         getFileMimeCompare();
@@ -61,8 +61,7 @@ public class TestService {
         getDocumentUploadStateCompare();
     }
 
-    private void getDocumentUploadStateCompare()
-            throws FileNotFoundException, UnsupportedEncodingException {
+    private void getDocumentUploadStateCompare() throws Exception {
         int diffCounter = 0;
 
         GetDocumentUploadStateRequest request = new GetDocumentUploadStateRequest();
@@ -72,7 +71,7 @@ public class TestService {
         assert inputIds != null;
         Scanner scanner = new Scanner(inputIds);
 
-        fileOutput = new PrintWriter(outputDir + " GetDocumentUploadState.txt", "UTF-8");
+        fileOutput = new PrintWriter(outputDir + "GetDocumentUploadState.txt", "UTF-8");
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -107,8 +106,7 @@ public class TestService {
         fileOutput.close();
     }
 
-    private void getTicketedUrlCompare()
-            throws FileNotFoundException, UnsupportedEncodingException {
+    private void getTicketedUrlCompare() throws Exception {
         int diffCounter = 0;
 
         GetTicketedUrlRequest request = new GetTicketedUrlRequest();
@@ -151,7 +149,7 @@ public class TestService {
         fileOutput.close();
     }
 
-    private void getTicketCompare() throws FileNotFoundException, UnsupportedEncodingException {
+    private void getTicketCompare() throws Exception {
         int diffCounter = 0;
 
         GetTicketRequest request = new GetTicketRequest();
@@ -194,7 +192,7 @@ public class TestService {
         fileOutput.close();
     }
 
-    private void getFileSizeCompare() throws FileNotFoundException, UnsupportedEncodingException {
+    private void getFileSizeCompare() throws Exception {
         int diffCounter = 0;
 
         GetFileSizeRequest request = new GetFileSizeRequest();
@@ -237,7 +235,7 @@ public class TestService {
         fileOutput.close();
     }
 
-    private void getFileMimeCompare() throws FileNotFoundException, UnsupportedEncodingException {
+    private void getFileMimeCompare() throws Exception {
         int diffCounter = 0;
 
         GetFileMimeRequest request = new GetFileMimeRequest();
@@ -280,7 +278,7 @@ public class TestService {
         fileOutput.close();
     }
 
-    public <T, G> boolean compare(T response, G request, String[] contextPath) {
+    public <T, G> boolean compare(T response, G request, String[] contextPath) throws Exception {
 
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
 
