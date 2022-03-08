@@ -36,6 +36,7 @@ public class FileControllerTests {
     @Test
     public void getFileMimeTest() throws JsonProcessingException {
         var req = new GetFileMimeRequest();
+        req.setDocumentGUID("A");
         var resp = new GetFileMimeResponse();
 
         resp.setMime("A");
@@ -58,6 +59,7 @@ public class FileControllerTests {
     @Test
     public void getFileSizeTest() throws JsonProcessingException {
         var req = new GetFileSizeRequest();
+        req.setDocumentGUID("A");
         var resp = new GetFileSizeResponse();
 
         resp.setSize(Long.MAX_VALUE);

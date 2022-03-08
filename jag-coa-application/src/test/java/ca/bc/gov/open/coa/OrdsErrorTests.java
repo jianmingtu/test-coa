@@ -53,48 +53,45 @@ public class OrdsErrorTests {
     @Test
     public void getFileSizeOrdsFailTest() {
         FileController fileController = new FileController(restTemplate, objectMapper, coaConfig);
-
-        Assertions.assertThrows(
-                ORDSException.class, () -> fileController.getFileSize(new GetFileSizeRequest()));
+        GetFileSizeRequest req = new GetFileSizeRequest();
+        req.setDocumentGUID("A");
+        Assertions.assertThrows(ORDSException.class, () -> fileController.getFileSize(req));
     }
 
     @Test
     public void getFileMimeOrdsFailTest() {
         FileController fileController = new FileController(restTemplate, objectMapper, coaConfig);
-
-        Assertions.assertThrows(
-                ORDSException.class, () -> fileController.getFileMime(new GetFileMimeRequest()));
+        GetFileMimeRequest req = new GetFileMimeRequest();
+        req.setDocumentGUID("A");
+        Assertions.assertThrows(ORDSException.class, () -> fileController.getFileMime(req));
     }
 
     @Test
     public void getTicketedUrlOrdsFailTest() {
         TicketController ticketController =
                 new TicketController(restTemplate, objectMapper, coaConfig);
-
-        Assertions.assertThrows(
-                ORDSException.class,
-                () -> ticketController.getTicketedUrl(new GetTicketedUrlRequest()));
+        GetTicketedUrlRequest req = new GetTicketedUrlRequest();
+        req.setDocumentGUID("A");
+        Assertions.assertThrows(ORDSException.class, () -> ticketController.getTicketedUrl(req));
     }
 
     @Test
     public void getTicketOrdsFailTest() {
         TicketController ticketController =
                 new TicketController(restTemplate, objectMapper, coaConfig);
-
-        Assertions.assertThrows(
-                ORDSException.class, () -> ticketController.getTicket(new GetTicketRequest()));
+        GetTicketRequest req = new GetTicketRequest();
+        req.setDocumentGUID("A");
+        Assertions.assertThrows(ORDSException.class, () -> ticketController.getTicket(req));
     }
 
     @Test
     public void getDocumentUploadStateOrdsFailTest() {
         StorageController storageController =
                 new StorageController(restTemplate, objectMapper, coaConfig);
-
+        GetDocumentUploadStateRequest req = new GetDocumentUploadStateRequest();
+        req.setDocumentGUID("A");
         Assertions.assertThrows(
-                ORDSException.class,
-                () ->
-                        storageController.getDocumentUploadState(
-                                new GetDocumentUploadStateRequest()));
+                ORDSException.class, () -> storageController.getDocumentUploadState(req));
     }
 
     @Test
