@@ -36,6 +36,7 @@ public class TicketControllerTests {
     @Test
     public void getTicketedUrlTest() throws JsonProcessingException {
         var req = new GetTicketedUrlRequest();
+        req.setDocumentGUID("A");
         var resp = new GetTicketedUrlResponse();
 
         resp.setTicketedUrl("A");
@@ -59,6 +60,7 @@ public class TicketControllerTests {
     @Test
     public void getTicketTest() throws JsonProcessingException {
         var req = new GetTicketRequest();
+        req.setDocumentGUID("A");
         var resp = new GetTicketResponse();
 
         resp.setTicket("A");

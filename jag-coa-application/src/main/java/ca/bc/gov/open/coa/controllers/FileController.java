@@ -11,6 +11,8 @@ import ca.bc.gov.open.coa.one.GetFileSizeRequest;
 import ca.bc.gov.open.coa.one.GetFileSizeResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +55,9 @@ public class FileController {
 
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "file/mime")
-                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam(
+                                "documentGUID",
+                                URLEncoder.encode(search.getDocumentGUID(), StandardCharsets.UTF_8))
                         .queryParam("appId", coaConfig.getCoaAppId())
                         .queryParam("password", coaConfig.getCoaPassword())
                         .queryParam("userName", coaConfig.getCoaUsername())
@@ -64,7 +68,7 @@ public class FileController {
         try {
             HttpEntity<GetFileMimeResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetFileMimeResponse.class);
@@ -93,7 +97,9 @@ public class FileController {
 
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "file/size")
-                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam(
+                                "documentGUID",
+                                URLEncoder.encode(search.getDocumentGUID(), StandardCharsets.UTF_8))
                         .queryParam("appId", coaConfig.getCoaAppId())
                         .queryParam("password", coaConfig.getCoaPassword())
                         .queryParam("userName", coaConfig.getCoaUsername())
@@ -104,7 +110,7 @@ public class FileController {
         try {
             HttpEntity<GetFileSizeResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetFileSizeResponse.class);

@@ -8,6 +8,8 @@ import ca.bc.gov.open.coa.models.RequestSuccessLog;
 import ca.bc.gov.open.coa.one.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +53,9 @@ public class TicketController {
 
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "ticket/url")
-                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam(
+                                "documentGUID",
+                                URLEncoder.encode(search.getDocumentGUID(), StandardCharsets.UTF_8))
                         .queryParam("appId", coaConfig.getCoaAppId())
                         .queryParam("password", coaConfig.getCoaPassword())
                         .queryParam("userName", coaConfig.getCoaUsername())
@@ -65,7 +69,7 @@ public class TicketController {
         try {
             HttpEntity<GetTicketedUrlResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetTicketedUrlResponse.class);
@@ -94,7 +98,9 @@ public class TicketController {
 
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "ticket")
-                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam(
+                                "documentGUID",
+                                URLEncoder.encode(search.getDocumentGUID(), StandardCharsets.UTF_8))
                         .queryParam("appId", coaConfig.getCoaAppId())
                         .queryParam("password", coaConfig.getCoaPassword())
                         .queryParam("userName", coaConfig.getCoaUsername())
@@ -108,7 +114,7 @@ public class TicketController {
         try {
             HttpEntity<GetTicketResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetTicketResponse.class);

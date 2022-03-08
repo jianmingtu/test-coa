@@ -9,6 +9,8 @@ import ca.bc.gov.open.coa.models.StoreDocumentBody;
 import ca.bc.gov.open.coa.one.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,7 +54,9 @@ public class StorageController {
 
         UriComponentsBuilder builder =
                 UriComponentsBuilder.fromHttpUrl(host + "doc/state")
-                        .queryParam("documentGUID", search.getDocumentGUID())
+                        .queryParam(
+                                "documentGUID",
+                                URLEncoder.encode(search.getDocumentGUID(), StandardCharsets.UTF_8))
                         .queryParam("appId", coaConfig.getCoaAppId())
                         .queryParam("password", coaConfig.getCoaPassword())
                         .queryParam("userName", coaConfig.getCoaUsername())
@@ -63,7 +67,7 @@ public class StorageController {
         try {
             HttpEntity<GetDocumentUploadStateResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.GET,
                             new HttpEntity<>(new HttpHeaders()),
                             GetDocumentUploadStateResponse.class);
@@ -98,7 +102,7 @@ public class StorageController {
         try {
             HttpEntity<StoreDocumentAsyncResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.POST,
                             payload,
                             StoreDocumentAsyncResponse.class);
@@ -132,7 +136,7 @@ public class StorageController {
         try {
             HttpEntity<StoreDocumentResponse> resp =
                     restTemplate.exchange(
-                            builder.build().encode().toUri(),
+                            builder.build(true).toUri(),
                             HttpMethod.POST,
                             payload,
                             StoreDocumentResponse.class);
