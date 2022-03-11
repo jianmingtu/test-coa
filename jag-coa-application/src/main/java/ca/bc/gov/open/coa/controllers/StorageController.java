@@ -84,7 +84,7 @@ public class StorageController {
                                     "Error received from ORDS",
                                     "GetDocumentUploadStateRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }
@@ -118,7 +118,7 @@ public class StorageController {
                                     "Error received from ORDS",
                                     "StoreDocumentAsyncRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }
@@ -152,7 +152,7 @@ public class StorageController {
                                     "Error received from ORDS",
                                     "StoreDocumentRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }

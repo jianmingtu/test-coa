@@ -84,7 +84,7 @@ public class FileController {
                                     "Error received from ORDS",
                                     "getFileMimeRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }
@@ -126,7 +126,7 @@ public class FileController {
                                     "Error received from ORDS",
                                     "GetFileSizeRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }

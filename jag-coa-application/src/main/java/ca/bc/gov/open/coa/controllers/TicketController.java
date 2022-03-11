@@ -85,7 +85,7 @@ public class TicketController {
                                     "Error received from ORDS",
                                     "GetTicketedUrlRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }
@@ -130,7 +130,7 @@ public class TicketController {
                                     "Error received from ORDS",
                                     "GetTicketRequest",
                                     ex.getMessage(),
-                                    null)));
+                                    search)));
             throw new ORDSException();
         }
     }
