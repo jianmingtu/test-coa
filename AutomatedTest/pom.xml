@@ -92,7 +92,7 @@
 
 
     <build>
-        <finalName>pcss-test-runner</finalName>
+        <finalName>coa-test-runner</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
