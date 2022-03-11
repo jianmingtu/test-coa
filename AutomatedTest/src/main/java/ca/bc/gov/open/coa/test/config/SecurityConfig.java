@@ -16,10 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${security.basic-auth.username:}")
+    @Value("${test.username}")
     private String userName;
 
-    @Value("${security.basic-auth.password}")
+    @Value("${test.password}")
     private String password;
 
     @Autowired MyBasicAuthenticationEntryPoint authenticationEntryPoint;
