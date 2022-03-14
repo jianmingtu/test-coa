@@ -90,15 +90,15 @@ public class TestService {
         }
     }
 
-    public File runAllTests() throws Exception {
+    public File runAllTests() throws IOException {
         // locate the project
         SoapUITestCaseRunner runner = new SoapUITestCaseRunner();
         runner.setProjectFile("coa-soapui-project.xml");
         try {
             runner.run();
-            return null;
         } catch (Exception ignored) {
-            return zipAndReturnErrors();
+
         }
+        return zipAndReturnErrors();
     }
 }

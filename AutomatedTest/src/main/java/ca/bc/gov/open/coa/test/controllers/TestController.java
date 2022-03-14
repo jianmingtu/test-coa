@@ -26,7 +26,7 @@ public class TestController {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity runAllTests() throws Exception {
+    public ResponseEntity runAllTests() throws IOException {
 
         File f = testService.runAllTests();
         if (f != null && f.exists()) {
