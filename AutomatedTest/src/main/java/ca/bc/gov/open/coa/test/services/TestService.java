@@ -97,7 +97,8 @@ public class TestService {
         try {
             runner.run();
         } catch (Exception ignored) {
-            return zipAndReturnErrors();
+
         }
+        return zipAndReturnErrors();
     }
 }
