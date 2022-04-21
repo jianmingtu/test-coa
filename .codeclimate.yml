@@ -10,5 +10,5 @@ exclude_patterns:
   - ".github/"
   - ".env"
   - ".env.template"
-  - "jag-coa-application/src/test"
-  - "gitops"
+  - "jag-coa-application/src/test/"
+  - "gitops/"
