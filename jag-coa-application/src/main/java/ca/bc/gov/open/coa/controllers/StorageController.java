@@ -133,6 +133,7 @@ public class StorageController {
         HttpEntity<StoreDocumentBody> payload =
                 new HttpEntity<>(new StoreDocumentBody(search, coaConfig), new HttpHeaders());
 
+        log.info("request + " + objectMapper.writeValueAsString(payload.getBody()));
         try {
             HttpEntity<StoreDocumentResponse> resp =
                     restTemplate.exchange(

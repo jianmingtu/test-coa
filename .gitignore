@@ -43,3 +43,4 @@ TestSuite_COA*
 /global-groovy.log
 /comparison-tool/results/*.txt
 
+/TestErrors.zip
