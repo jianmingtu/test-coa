@@ -63,7 +63,7 @@ objects:
       
   spec:
     completionDeadlineSeconds: 1200
-    replicas: 1
+    replicas: 3
     selector:
       name: ${COMPONENT_NAME}
     strategy:
@@ -150,7 +150,7 @@ objects:
                   key: OBJ_STORE_VERSION
             resources:
               limits:
-                cpu: 400m
+                cpu: 200m
                 memory: 512Mi
               requests:
                 cpu: 50m

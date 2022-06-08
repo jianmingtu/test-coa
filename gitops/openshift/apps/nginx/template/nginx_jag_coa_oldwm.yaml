@@ -134,10 +134,10 @@ objects:
             resources:
               limits:
                 cpu: 100m
-                memory: 512Mi
+                memory: 200Mi
               requests:
                 cpu: 50m
-                memory: 256Mi
+                memory: 100Mi
             volumeMounts:
               - name: ${COMPONENT_NAME}-conf
                 readOnly: true
