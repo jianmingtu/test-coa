@@ -5,8 +5,6 @@ Github space for the integration API for Court of Appeal application for the web
 [![Maintainability](https://api.codeclimate.com/v1/badges/a492f352f279a2d1621e/maintainability)](https://codeclimate.com/github/bcgov/jag-coa/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a492f352f279a2d1621e/test_coverage)](https://codeclimate.com/github/bcgov/jag-coa/test_coverage)
 
-PCSS Common WebMethods Replacement
-
 ### Recommended Tools
 * Intellij
 * Docker
@@ -35,10 +33,15 @@ BASIC_AUTH_USER: The username for the basic authentication. This can be any valu
 ORDS_HOST: The url for ords rest package.
 
 OBJ_STORE_APP_ID: parameter required to request document or ticket
+
 OBJ_STORE_PSW: parameter required to request document or ticket
+
 OBJ_STORE_DB_ID: parameter required to request document or ticket
+
 OBJ_STORE_VERSION: parameter required to request document or ticket
+
 OBJ_STORE_TICKET_LIFETIME: parameter required to request document or ticket
+
 OBJ_STORE_USER: parameter required to request document or ticket
 
 ### Optional Enviromental Variables
@@ -52,7 +55,7 @@ before they can be pushed to.
 ### Building the Application
 1) Make sure using java 11 for the project modals and sdk
 2) Run ```mvn compile```
-3) Make sure ```pcss-common-models``` are marked as generated sources roots (xjc)
+3) Make sure ```coa-common-models``` are marked as generated sources roots (xjc)
 
 ### Running the application
 Option A) Intellij
@@ -67,7 +70,7 @@ Option B) Jar
 Option C) Docker
 1) Run ```mvn package```
 2) Run ```cd jag-coa-application```
-3) Run ```docker build -t coa-application .```
+3) Run ```docker build -t jag-coa-application .```
 4) Run ```docker run -p 8080:8080 coa-application $ENV_VAR$```  (Note that $ENV_VAR$ are environment variables)
 
 ### Pre Commit
@@ -76,4 +79,4 @@ Option C) Docker
 
 ### JaCoCo Coverage Report
 1) Run ```mvn clean verify```
-2) Open ```pcss-code-coverage/target/site/jacoco/index.html``` in a browser
+2) Open ```jag-coa-application/target/site/jacoco/index.html``` in a browser
