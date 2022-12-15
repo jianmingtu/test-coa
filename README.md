@@ -8,7 +8,6 @@ Github space for the integration API for Court of Appeal application for the web
 ### Recommended Tools
 * Intellij
 * Docker
-* Docker Compose
 * Maven
 * Java 11
 * Lombok
@@ -70,7 +69,7 @@ Option B) Jar
 Option C) Docker
 1) Run ```mvn package```
 2) Run ```cd jag-coa-application```
-3) Run ```docker build -t jag-coa-application .```
+3) Run ```docker build -t coa-application .```
 4) Run ```docker run -p 8080:8080 coa-application $ENV_VAR$```  (Note that $ENV_VAR$ are environment variables)
 
 ### Pre Commit
