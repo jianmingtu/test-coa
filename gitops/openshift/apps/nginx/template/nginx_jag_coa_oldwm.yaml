@@ -8,7 +8,7 @@ labels:
   app: ${APP_NAME}
   app.kubernetes.io/name: ${COMPONENT_NAME}
   app.openshift.io/runtime: ${RUNTIME}
-
+  
 parameters:
 
 - name: APP_NAME
@@ -20,12 +20,12 @@ parameters:
   description: The application name that each component is part of
   required: false
   value: nginx-jag-coa
-
+  
 - name: OC_NAMESPACE
   description: The OpenShift namespace prefix
   required: false
   value: bf8ee6
-
+  
 - name: OC_ENV
   description: The OpenShift environment, ie dev, test or prod
   required: true
@@ -34,36 +34,12 @@ parameters:
   description: The application name that each component is part of
   required: false
   value: nginx
-
-- name: ENDPOINT1
-  description: The target endpoint
+ 
+- name: ENDPOINT
+  description: The application name that each component is part of
   required: false
-  value: jag-coa
-
-- name: ENDPOINT2
-  description: The target endpoint
-  required: false
-  value: jag-coa-oldwm
-
-- name: DNS
-  description: The nginx router url
-  required: true
-
-- name: SSL_Certificate
-  description: SSL application certificate
-  required: false
-  value: ''
-
-- name: SSL_PrivateKey
-  description: Private key for the SSL application certificate
-  required: false
-  value: ''
-
-- name: CA_CertificateChain
-  description: CA certificate chain for the SSL application certificate
-  required: false
-  value: ''
-
+  value: nginx-jag-coa
+  
 objects:
 
 - kind: ConfigMap
@@ -79,17 +55,7 @@ objects:
         access_log off;
       }
 
-      location = /api {
-        return 302 /api/actuator/health;
-      }
-
-      location /healthcheck { 
-        default_type application/json;
-        return 200 '{"status":"UP","groups":["liveness","readiness"]}';
-        access_log off;
-      }
-
-      location /api/actuator/health {
+      location /ws {
         client_max_body_size 100m;
         proxy_read_timeout 240s;
         proxy_send_timeout 80s;
@@ -102,36 +68,7 @@ objects:
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Host $server_name;
         proxy_pass_request_headers on;
-        proxy_pass http://splitter/actuator/health;
-      }
-      
-      location /api/ws {
-        client_max_body_size 100m;
-        proxy_read_timeout 240s;
-        proxy_send_timeout 80s;
-        proxy_redirect off;
-        port_in_redirect off;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Host $server_name;
-        proxy_pass_request_headers on;
-        proxy_pass http://splitter/ws;
-      }
-
-- kind: ConfigMap
-  apiVersion: v1
-  metadata:
-    name: ${COMPONENT_NAME}-upstream
-    namespace: ${OC_NAMESPACE}-${OC_ENV}
-  data:
-    nginx-upstream.conf: |-
-      upstream splitter {
-        server jag-coa;
-        # Tured off for now
-        # server nginx-jag-coa-oldwm;
+        proxy_pass https://wsgw.dev.jag.gov.bc.ca/courts/ocp/CeisScss;
       }
 
 - kind: DeploymentConfig
@@ -139,8 +76,6 @@ objects:
   metadata:
     name: ${COMPONENT_NAME}
     namespace: ${OC_NAMESPACE}-${OC_ENV}
-    annotations:
-      app.openshift.io/connects-to: ${ENDPOINT1}, ${ENDPOINT2}
   spec:
     strategy:
       type: Rolling
@@ -180,12 +115,9 @@ objects:
             configMap:
               name: ${COMPONENT_NAME}-conf
               defaultMode: 420
-          - name: ${COMPONENT_NAME}-upstream
-            configMap:
-              name: ${COMPONENT_NAME}-upstream
-              defaultMode: 420
         containers:
           - name: ${COMPONENT_NAME}
+          # Below Immage url must be changed as per gold cluster image stream
             image: >-
               image-registry.openshift-image-registry.svc:5000/${OC_NAMESPACE}-tools/${COMPONENT_NAME}:latest
             ports:
@@ -204,9 +136,6 @@ objects:
               - name: ${COMPONENT_NAME}-conf
                 readOnly: true
                 mountPath: /opt/app-root/etc/nginx.default.d/
-              - name: ${COMPONENT_NAME}-upstream
-                readOnly: true
-                mountPath: /opt/app-root/etc/nginx.d
             terminationMessagePath: /dev/termination-log
             terminationMessagePolicy: File
             imagePullPolicy: Always
@@ -225,35 +154,12 @@ objects:
         protocol: TCP
         port: 8080
         targetPort: 8080
+      - name: 80-tcp
+        protocol: TCP
+        port: 80
+        targetPort: 8080
     selector:
       name: ${COMPONENT_NAME}
       deploymentconfig: ${COMPONENT_NAME}
     type: ClusterIP
     sessionAffinity: None
-
-- kind: Route
-  apiVersion: route.openshift.io/v1
-  metadata:
-    name: ${COMPONENT_NAME}
-    namespace: ${OC_NAMESPACE}-${OC_ENV}
-  annotations:
-    # if we do not use sticky-session, disable_cookies needs to be true
-    haproxy.router.openshift.io/disable_cookies: "true"
-    # balance algorithm
-    haproxy.router.openshift.io/balance: roundrobin
-  spec:
-    # Below value must be changed as per gold cluster certificate/DNS
-    host: ${COMPONENT_NAME}-${OC_NAMESPACE}-${OC_ENV}.${DNS}
-    to:
-      kind: Service
-      name: ${COMPONENT_NAME}
-      weight: 100
-    port:
-      targetPort: 8080-tcp
-    tls:
-      termination: edge
-      certificate: '${SSL_Certificate}'
-      key: '${SSL_PrivateKey}'
-      caCertificate: '${CA_CertificateChain}'
-      insecureEdgeTerminationPolicy: None
-    wildcardPolicy: None
