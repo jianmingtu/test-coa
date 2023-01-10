@@ -4,6 +4,8 @@ security:
     username: ${BASIC_AUTH_USER}
 coa:
   host: ${ORDS_HOST}
+  username: ${ORDS_USERNAME}
+  password: ${ORDS_PASSWORD}
   object-store-psw: ${OBJ_STORE_PSW}
   object-store-app-id: ${OBJ_STORE_APP_ID}
   object-store-db-id: ${OBJ_STORE_DB_ID}
