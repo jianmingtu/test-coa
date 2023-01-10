@@ -118,6 +118,16 @@ objects:
                 secretKeyRef:
                   name: coa-application-secrets
                   key: ORDS_HOST
+            - name: ORDS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: ORDS_USERNAME
+            - name: ORDS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: coa-application-secrets
+                  key: ORDS_PASSWORD
             - name: OBJ_STORE_APP_ID
               valueFrom:
                 secretKeyRef:

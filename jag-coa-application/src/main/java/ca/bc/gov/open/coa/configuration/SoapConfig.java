@@ -3,16 +3,23 @@ package ca.bc.gov.open.coa.configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.soap.SOAPMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.config.annotation.EnableWs;
@@ -31,6 +38,12 @@ public class SoapConfig extends WsConfigurerAdapter {
     public static final String SOAP_NAMESPACE =
             "http://hawaii1-ld2-z3/COA.Source.ws.provider:WebCATSDocumentStorageService";
 
+    @Value("${coa.username}")
+    private String username;
+
+    @Value("${coa.password}")
+    private String password;
+
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(
             ApplicationContext applicationContext) {
@@ -44,6 +57,24 @@ public class SoapConfig extends WsConfigurerAdapter {
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(0, createMappingJacksonHttpMessageConverter());
+
+        restTemplate
+                .getInterceptors()
+                .add(
+                        new ClientHttpRequestInterceptor() {
+                            @Override
+                            public ClientHttpResponse intercept(
+                                    HttpRequest request,
+                                    byte[] body,
+                                    ClientHttpRequestExecution execution)
+                                    throws IOException {
+                                String auth = username + ":" + password;
+                                byte[] encodedAuth = Base64.encodeBase64(auth.getBytes());
+                                request.getHeaders()
+                                        .add("Authorization", "Basic " + new String(encodedAuth));
+                                return execution.execute(request, body);
+                            }
+                        });
         return restTemplate;
     }
 

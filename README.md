@@ -31,6 +31,10 @@ BASIC_AUTH_USER: The username for the basic authentication. This can be any valu
 
 ORDS_HOST: The url for ords rest package.
 
+ORDS_USERNAME: ORDS_HOST authentication
+
+ORDS_PASSWORD: ORDS_HOST authentication
+
 OBJ_STORE_APP_ID: parameter required to request document or ticket
 
 OBJ_STORE_PSW: parameter required to request document or ticket
