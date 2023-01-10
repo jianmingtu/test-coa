@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
-    branches: [ main ]
+    branches: [main]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Set up JDK build environment
       - name: Set up JDK 11
@@ -94,7 +94,7 @@ jobs:
 
         # Upload JSON for debugging purposes
       - name: Upload JSON for debugging purposes
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: coa-coverage-report
           path: ./target/site/jacoco/codeclimate.json
