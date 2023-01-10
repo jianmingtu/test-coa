@@ -4,4 +4,9 @@ security:
     username: ${BASIC_AUTH_USER}
 coa:
   host: http://127.0.0.1/
-  namespace: ${COA_NAMESPACE}
+  object-store-psw: object-store-psw
+  object-store-app-id: object-store-psw
+  object-store-db-id: object-store-psw
+  object-store-username: object-store-psw
+  object-store-version: object-store-version
+  object-store-ticket-lifetime: object-store-ticket-lifetime
