@@ -12,7 +12,10 @@ on:
         required: true
         default: jag-coa
       env:
-        description: 'Image Target Env'
+        type: choice
+        description: Image Target environment
+        options: 
+        - dev    
         required: true
         default: 'dev'
 
