@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.soap.SOAPMessage;
+
+import jakarta.servlet.Servlet;
+import jakarta.xml.soap.SOAPMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,12 +47,12 @@ public class SoapConfig extends WsConfigurerAdapter {
     private String password;
 
     @Bean
-    public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(
+    public ServletRegistrationBean<Servlet> messageDispatcherServlet(
             ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean<>(servlet, "/ws/*");
+        return new ServletRegistrationBean<Servlet>(servlet, "/ws/*");
     }
 
     @Bean
@@ -69,9 +71,9 @@ public class SoapConfig extends WsConfigurerAdapter {
                                     ClientHttpRequestExecution execution)
                                     throws IOException {
                                 String auth = username + ":" + password;
-                                byte[] encodedAuth = Base64.encodeBase64(auth.getBytes());
+                                String encodedAuth = Base64.encodeBase64String(auth.getBytes());
                                 request.getHeaders()
-                                        .add("Authorization", "Basic " + new String(encodedAuth));
+                                        .add("Authorization", "Basic " + encodedAuth);
                                 return execution.execute(request, body);
                             }
                         });

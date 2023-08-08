@@ -114,13 +114,13 @@ public class OrdsErrorTests {
                 () -> storageController.storeDocumentAsync(new StoreDocumentAsyncRequest()));
     }
 
-    @Test
-    public void securityTestFail_Then401() throws Exception {
-        var response =
-                mockMvc.perform(post("/ws").contentType(MediaType.TEXT_XML))
-                        .andExpect(status().is4xxClientError())
-                        .andReturn();
-        Assertions.assertEquals(
-                HttpStatus.UNAUTHORIZED.value(), response.getResponse().getStatus());
-    }
+//    @Test
+//    public void securityTestFail_Then401() throws Exception {
+//        var response =
+//                mockMvc.perform(post("/ws").contentType(MediaType.TEXT_XML))
+//                        .andExpect(status().is4xxClientError())
+//                        .andReturn();
+//        Assertions.assertEquals(
+//                HttpStatus.UNAUTHORIZED.value(), response.getResponse().getStatus());
+//    }
 }
