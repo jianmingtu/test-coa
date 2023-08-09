@@ -30,7 +30,6 @@
     <modules>
         <module>jag-coa-application</module>
         <module>comparison-tool</module>
-        <module>AutomatedTest</module>
         <module>coa-common-models</module>
     </modules>
 
