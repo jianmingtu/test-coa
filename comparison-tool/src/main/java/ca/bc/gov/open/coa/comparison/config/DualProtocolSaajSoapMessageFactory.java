@@ -1,5 +1,6 @@
 package ca.bc.gov.open.coa.comparison.config;
 
+import jakarta.xml.soap.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +8,6 @@ import java.io.PushbackInputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
-import jakarta.xml.soap.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;

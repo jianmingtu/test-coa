@@ -12,47 +12,55 @@ import ca.bc.gov.open.coa.exceptions.ORDSException;
 import ca.bc.gov.open.coa.one.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@AutoConfigureMockMvc
+@WebMvcTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrdsErrorTests {
-    @Autowired private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired MockMvc mockMvc;
 
-    @Autowired private CoaConfig coaConfig;
+    @Mock private ObjectMapper objectMapper;
+    @Mock private CoaConfig coaConfig;
+    @Mock private RestTemplate restTemplate;
 
-    @Autowired private MockMvc mockMvc;
+    @Mock private FileController fileController;
+    @Mock private HealthController healthController;
+    @Mock private StorageController storageController;
+    @Mock private TicketController ticketController;
 
-    @Mock private RestTemplate restTemplate = new RestTemplate();
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        fileController = Mockito.spy(new FileController(restTemplate, objectMapper, coaConfig));
+        healthController = Mockito.spy(new HealthController(restTemplate, objectMapper));
+        storageController =
+                Mockito.spy(new StorageController(restTemplate, objectMapper, coaConfig));
+        ticketController = Mockito.spy(new TicketController(restTemplate, objectMapper, coaConfig));
+    }
 
     @Test
     public void getHealthOrdsFailTest() {
-        HealthController healthController = new HealthController(restTemplate, objectMapper);
-
         Assertions.assertThrows(
                 ORDSException.class, () -> healthController.getHealth(new GetHealth()));
     }
 
     @Test
     public void getPingOrdsFailTest() {
-        HealthController healthController = new HealthController(restTemplate, objectMapper);
-
         Assertions.assertThrows(ORDSException.class, () -> healthController.getPing(new GetPing()));
     }
 
     @Test
     public void getFileSizeOrdsFailTest() {
-        FileController fileController = new FileController(restTemplate, objectMapper, coaConfig);
         GetFileSizeRequest req = new GetFileSizeRequest();
         req.setDocumentGUID("A");
         Assertions.assertThrows(ORDSException.class, () -> fileController.getFileSize(req));
@@ -60,7 +68,6 @@ public class OrdsErrorTests {
 
     @Test
     public void getFileMimeOrdsFailTest() {
-        FileController fileController = new FileController(restTemplate, objectMapper, coaConfig);
         GetFileMimeRequest req = new GetFileMimeRequest();
         req.setDocumentGUID("A");
         Assertions.assertThrows(ORDSException.class, () -> fileController.getFileMime(req));
@@ -68,8 +75,6 @@ public class OrdsErrorTests {
 
     @Test
     public void getTicketedUrlOrdsFailTest() {
-        TicketController ticketController =
-                new TicketController(restTemplate, objectMapper, coaConfig);
         GetTicketedUrlRequest req = new GetTicketedUrlRequest();
         req.setDocumentGUID("A");
         Assertions.assertThrows(ORDSException.class, () -> ticketController.getTicketedUrl(req));
@@ -77,8 +82,6 @@ public class OrdsErrorTests {
 
     @Test
     public void getTicketOrdsFailTest() {
-        TicketController ticketController =
-                new TicketController(restTemplate, objectMapper, coaConfig);
         GetTicketRequest req = new GetTicketRequest();
         req.setDocumentGUID("A");
         Assertions.assertThrows(ORDSException.class, () -> ticketController.getTicket(req));
@@ -86,8 +89,6 @@ public class OrdsErrorTests {
 
     @Test
     public void getDocumentUploadStateOrdsFailTest() {
-        StorageController storageController =
-                new StorageController(restTemplate, objectMapper, coaConfig);
         GetDocumentUploadStateRequest req = new GetDocumentUploadStateRequest();
         req.setDocumentGUID("A");
         Assertions.assertThrows(
@@ -96,9 +97,6 @@ public class OrdsErrorTests {
 
     @Test
     public void storeDocumentOrdsFailTest() {
-        StorageController storageController =
-                new StorageController(restTemplate, objectMapper, coaConfig);
-
         Assertions.assertThrows(
                 ORDSException.class,
                 () -> storageController.storeDocument(new StoreDocumentRequest()));
@@ -106,21 +104,15 @@ public class OrdsErrorTests {
 
     @Test
     public void storeDocumentAsyncOrdsFailTest() {
-        StorageController storageController =
-                new StorageController(restTemplate, objectMapper, coaConfig);
-
         Assertions.assertThrows(
                 ORDSException.class,
                 () -> storageController.storeDocumentAsync(new StoreDocumentAsyncRequest()));
     }
 
-//    @Test
-//    public void securityTestFail_Then401() throws Exception {
-//        var response =
-//                mockMvc.perform(post("/ws").contentType(MediaType.TEXT_XML))
-//                        .andExpect(status().is4xxClientError())
-//                        .andReturn();
-//        Assertions.assertEquals(
-//                HttpStatus.UNAUTHORIZED.value(), response.getResponse().getStatus());
-//    }
+    @Test
+    public void securityTestFail_Then401() throws Exception {
+        mockMvc.perform(post("/ws").contentType(MediaType.TEXT_XML))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
 }

@@ -1,9 +1,9 @@
 package ca.bc.gov.open.coa.configuration;
 
-import java.io.IOException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
+import java.io.IOException;
 import org.springframework.stereotype.Component;
 
 @Component

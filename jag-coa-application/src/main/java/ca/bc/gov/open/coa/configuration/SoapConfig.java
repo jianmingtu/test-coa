@@ -3,12 +3,11 @@ package ca.bc.gov.open.coa.configuration;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import jakarta.servlet.Servlet;
+import jakarta.xml.soap.SOAPMessage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import jakarta.servlet.Servlet;
-import jakarta.xml.soap.SOAPMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,8 +71,7 @@ public class SoapConfig extends WsConfigurerAdapter {
                                     throws IOException {
                                 String auth = username + ":" + password;
                                 String encodedAuth = Base64.encodeBase64String(auth.getBytes());
-                                request.getHeaders()
-                                        .add("Authorization", "Basic " + encodedAuth);
+                                request.getHeaders().add("Authorization", "Basic " + encodedAuth);
                                 return execution.execute(request, body);
                             }
                         });
