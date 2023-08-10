@@ -84,13 +84,6 @@
                             </indent>
                         </format>
                     </formats>
-                    <!-- define a language-specific format -->
-                    <java>
-                        <googleJavaFormat>
-                            <version>1.10</version>
-                            <style>AOSP</style>
-                        </googleJavaFormat>
-                    </java>
                 </configuration>
             </plugin>
         </plugins>
