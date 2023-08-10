@@ -142,7 +142,7 @@
                     <!-- define a language-specific format -->
                     <java>
                         <googleJavaFormat>
-                            <version>1.8</version>
+                            <version>1.10</version>
                             <style>AOSP</style>
                         </googleJavaFormat>
                     </java>
