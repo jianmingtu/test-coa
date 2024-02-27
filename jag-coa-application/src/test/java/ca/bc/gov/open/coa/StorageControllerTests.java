@@ -9,26 +9,31 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class StorageControllerTests {
-    @Autowired private ObjectMapper objectMapper;
+    @Mock private ObjectMapper objectMapper;
+    @Mock private CoaConfig coaConfig;
+    @Mock private RestTemplate restTemplate;
+    @Mock private StorageController storageController;
 
-    @Autowired private CoaConfig coaConfig;
-
-    @Mock private RestTemplate restTemplate = new RestTemplate();
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        storageController =
+                Mockito.spy(new StorageController(restTemplate, objectMapper, coaConfig));
+    }
 
     @Test
     public void getDocumentUploadStateTest() throws JsonProcessingException {
@@ -49,8 +54,6 @@ public class StorageControllerTests {
                         Mockito.<Class<GetDocumentUploadStateResponse>>any()))
                 .thenReturn(responseEntity);
 
-        StorageController storageController =
-                new StorageController(restTemplate, objectMapper, coaConfig);
         var out = storageController.getDocumentUploadState(req);
         Assertions.assertNotNull(out);
     }
@@ -75,8 +78,6 @@ public class StorageControllerTests {
                         Mockito.<Class<StoreDocumentResponse>>any()))
                 .thenReturn(responseEntity);
 
-        StorageController storageController =
-                new StorageController(restTemplate, objectMapper, coaConfig);
         var out = storageController.storeDocument(req);
         Assertions.assertNotNull(out);
     }
@@ -100,8 +101,6 @@ public class StorageControllerTests {
                         Mockito.<Class<StoreDocumentAsyncResponse>>any()))
                 .thenReturn(responseEntity);
 
-        StorageController storageController =
-                new StorageController(restTemplate, objectMapper, coaConfig);
         var out = storageController.storeDocumentAsync(req);
         Assertions.assertNotNull(out);
     }

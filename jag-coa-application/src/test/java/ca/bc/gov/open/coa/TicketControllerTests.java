@@ -12,26 +12,30 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TicketControllerTests {
-    @Autowired private ObjectMapper objectMapper;
+    @Mock private ObjectMapper objectMapper;
+    @Mock private CoaConfig coaConfig;
+    @Mock private RestTemplate restTemplate;
+    @Mock private TicketController ticketController;
 
-    @Autowired private CoaConfig coaConfig;
-
-    @Mock private RestTemplate restTemplate = new RestTemplate();
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        ticketController = Mockito.spy(new TicketController(restTemplate, objectMapper, coaConfig));
+    }
 
     @Test
     public void getTicketedUrlTest() throws JsonProcessingException {
@@ -51,8 +55,6 @@ public class TicketControllerTests {
                         Mockito.<Class<GetTicketedUrlResponse>>any()))
                 .thenReturn(responseEntity);
 
-        TicketController ticketController =
-                new TicketController(restTemplate, objectMapper, coaConfig);
         var out = ticketController.getTicketedUrl(req);
         Assertions.assertNotNull(out);
     }
@@ -75,8 +77,6 @@ public class TicketControllerTests {
                         Mockito.<Class<GetTicketResponse>>any()))
                 .thenReturn(responseEntity);
 
-        TicketController ticketController =
-                new TicketController(restTemplate, objectMapper, coaConfig);
         var out = ticketController.getTicket(req);
         Assertions.assertNotNull(out);
     }

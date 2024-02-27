@@ -4,8 +4,10 @@ import ca.bc.gov.open.coa.configuration.CoaConfig;
 import ca.bc.gov.open.coa.one.StoreDocumentAsyncRequest;
 import ca.bc.gov.open.coa.one.StoreDocumentRequest;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class StoreDocumentBody extends StoreDocumentRequest {
     private String appId;
     private String userName;
