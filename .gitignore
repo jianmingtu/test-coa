@@ -41,6 +41,5 @@ cc-test-reporter
 TestSuite_COA*
 /coa-soapui-project.xml
 /global-groovy.log
-/comparison-tool/results/*.txt
 
 /TestErrors.zip

@@ -29,7 +29,6 @@
 
     <modules>
         <module>jag-coa-application</module>
-        <module>comparison-tool</module>
         <module>coa-common-models</module>
     </modules>
 
