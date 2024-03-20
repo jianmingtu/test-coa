@@ -4,4 +4,4 @@ RUN apk upgrade libexpat
 
 COPY ./jag-coa-application/target/jag-coa-application.jar jag-coa-application.jar
 
-ENTRYPOINT ["java", "-Xms128m -Xmx512m", "-jar","/jag-coa-application.jar"]
+ENTRYPOINT ["java", "-Xms32m -Xmx512m", "-jar","/jag-coa-application.jar"]
