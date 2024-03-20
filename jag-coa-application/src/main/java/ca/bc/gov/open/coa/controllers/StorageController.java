@@ -130,9 +130,12 @@ public class StorageController {
             throws JsonProcessingException {
         addEndpointHeader("StoreDocumentResponse");
 
+        logMemory();
+
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(host + "doc");
         HttpEntity<StoreDocumentBody> payload =
                 new HttpEntity<>(new StoreDocumentBody(search, coaConfig), new HttpHeaders());
+        logMemory();
 
         try {
             HttpEntity<StoreDocumentResponse> resp =
@@ -166,5 +169,17 @@ public class StorageController {
         } catch (Exception ex) {
             log.warn("Failed to add endpoint response header");
         }
+    }
+
+    void logMemory() {
+        log.info(
+                "Used Memory   :  "
+                        + (Runtime.getRuntime().totalMemory()
+                        - Runtime.getRuntime().freeMemory())
+                        + " bytes");
+        log.info("Free Memory   : " + Runtime.getRuntime().freeMemory() + " bytes");
+        log.info("Total Memory  : " + Runtime.getRuntime().totalMemory() + " bytes");
+        log.info("Max Memory    : " + Runtime.getRuntime().maxMemory() + " bytes");
+        log.info("------");
     }
 }
