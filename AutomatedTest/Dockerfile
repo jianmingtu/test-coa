@@ -1,5 +1,7 @@
 FROM eclipse-temurin:11-jre-alpine
 
+RUN apk upgrade libexpat
+
 WORKDIR /app
 RUN chgrp -R 0 /app && \
     chmod -R g=u /app
