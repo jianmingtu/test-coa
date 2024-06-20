@@ -78,16 +78,19 @@ jobs:
       # Trimming the ref to main in order to publish correct report
       - name: Set ref/head/main to main
         run: |
-          echo "GIT_BRANCH=master" >> $GITHUB_ENV
+          echo "GIT_BRANCH=main" >> $GITHUB_ENV
           #echo "::set-env name=GIT_BRANCH::main"
         if: env.GIT_BRANCH == 'refs/heads/main'
+
+      - name: Check Code Style
+        run: mvn -ntp spotless:check
 
       - name: Run Maven Test
         run: mvn -ntp verify
 
         # Formatting the Code Coverage Report
       - name: Format the coverage report
-        run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage ./target/site/jacoco/jacoco.xml -t jacoco -o ./target/site/jacoco/codeclimate.json
+        run: JACOCO_SOURCE_PATH=jag-coa-application/src/main/java ./cc-test-reporter format-coverage ./jag-coa-application/target/site/jacoco/jacoco.xml -t jacoco -o ./jag-coa-application/target/site/jacoco/codeclimate.json
 
         # Upload JSON for debugging purposes
       - name: Upload JSON for debugging purposes
